@@ -12,6 +12,7 @@ import "./person-edit"
 import "./flat-select"
 import { Person } from "../../models/person";
 import { Sumoney } from "../../models/sumoney";
+import { bottomRight } from "../styles/edit-styles";
 
 @customElement('renthing-form')
 export default class RenthingForm extends LitElement {
@@ -25,7 +26,6 @@ export default class RenthingForm extends LitElement {
     @state() private _foregift!: Sumoney
     @state() private _startDate!: Date
     @state() private _leaseTerm!: number
-    @state() private _payeeDat!: string
     @state() private _payCycle!: number
     @state() private _allowances!: number
     @state() private _supplement!: string
@@ -40,13 +40,12 @@ export default class RenthingForm extends LitElement {
         this._foregift = this.thing.foregift
         this._startDate = this.thing.startDate
         this._leaseTerm = this.thing.leaseTerm
-        this._payeeDat = this.thing.payeeDat
         this._payCycle = this.thing.payCycle
         this._allowances = this.thing.allowances
         this._supplement = this.thing.supplement
     }
 
-    private readonly _canceline = "取消"
+    private readonly _canceline = "取消 ✘"
 
     _handleSubmit(e: SubmitEvent) {
         e.preventDefault()
@@ -62,7 +61,6 @@ export default class RenthingForm extends LitElement {
                 this._foregift,
                 this._startDate,
                 this._leaseTerm,
-                this._payeeDat.trim(),
                 this._payCycle,
                 this._allowances,
                 this._supplement.trim(),
@@ -93,26 +91,23 @@ export default class RenthingForm extends LitElement {
                 @number-changed=${(e: CustomEvent) => this._leaseTerm = e.detail.d}></input-number>
             <input-number label="付款周期（月）" .value=${this._payCycle} .max=${this._leaseTerm}
                 @number-changed=${(e: CustomEvent) => this._payCycle = e.detail.d}></input-number>
-            <input-text label="收款账户" .value=${this._payeeDat} .maxLength=${MAX_TEXT_LENGTH}
-                @text-changed=${(e: CustomEvent) => this._payeeDat = e.detail.d}></input-text>
             <input-text label="附加条款" .value=${this._supplement} .maxLength=${MAX_TEXT_LENGTH}
                 @text-changed=${(e: CustomEvent) => this._supplement = e.detail.d}></input-text>
 
-            <div class="submitter">    
+            <div class="bottom-right">    
                 <input type="submit" value=${this._canceline} formnovalidate />
-                <input type="submit" value="保存" />
+                <input type="submit" value="保存 ✔" />
             </div>
         </form>`
     }
 
     static styles = [
+        bottomRight,
         css`
-            input[type='submit'] {
-                font-size: initial;
-                cursor: pointer;
-                padding: 0.3rem 0.6rem;
+            form {
+                margin: 0.2rem 0.5rem;
             }
-            div.submitter {
+            div.bottom-right {
                 margin: 0.2rem;
             }
         

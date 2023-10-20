@@ -14,7 +14,6 @@ export default class Leasegg {
     startDate: string;
     leaseTerm: number;
     payCycle: number;
-    payeeDat: string;
     allowances: number;
     appliances: string[];
     sundryFees: string[];
@@ -30,7 +29,6 @@ export default class Leasegg {
         this.startDate = Intl.DateTimeFormat("zh-CN", { dateStyle: "long" }).format(rent.startDate)
         this.leaseTerm = rent.leaseTerm
         this.payCycle = rent.payCycle
-        this.payeeDat = rent.payeeDat
         this.allowances = rent.allowances
         this.supplement = rent.supplement
         if (flat) {

@@ -12,7 +12,6 @@ export default class Renthing {
     foregift: Sumoney = { numeral: 1000, sinoNum: "" }              // 押金
     startDate: Date = new Date()                                    // 开始日期
     leaseTerm = 3       // 租期（月）
-    payeeDat = ""       // 收款账户
     payCycle = 1        // 付款周期（月）
     allowances = 0      // 允许改建、转租
     supplement = ""
@@ -26,7 +25,6 @@ export default class Renthing {
         foregift: Sumoney,
         startDate: Date,
         leaseTerm: number,
-        payeeDat: string,
         payCycle: number,
         allowances: number,
         supplement: string,
@@ -43,7 +41,6 @@ export default class Renthing {
         entity.foregift = foregift
         entity.startDate = startDate
         entity.leaseTerm = leaseTerm
-        entity.payeeDat = payeeDat
         entity.payCycle = payCycle
         entity.allowances = allowances
         entity.supplement = supplement
@@ -57,7 +54,6 @@ export default class Renthing {
             && isPersonValid(this.lessee)
             && isSumoneyValid(this.monthFee)
             && isSumoneyValid(this.foregift)
-            && this.payeeDat.length <= MAX_TEXT_LENGTH
             && this.supplement.length <= MAX_TEXT_LENGTH
     }
 
@@ -70,7 +66,6 @@ export default class Renthing {
             && this.shared === d.shared
             && this.startDate === d.startDate
             && this.leaseTerm === d.leaseTerm
-            && this.payeeDat === d.payeeDat
             && this.payCycle === d.payCycle
             && this.allowances === d.allowances
             && this.supplement === d.supplement

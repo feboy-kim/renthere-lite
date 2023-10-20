@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { smallStyles } from "../my-styles";
 import { Person } from "../../models/person";
+import { sectionView } from "../styles/view-styles";
 
 @customElement('person-view')
 export default class PersonView extends LitElement {
@@ -9,19 +9,25 @@ export default class PersonView extends LitElement {
     @property({ type: Object }) value!: Person
 
     protected render(): unknown {
-        return html`
-            <fieldset>
-                <legend><small>${this.label}</small></legend>
-                <h3>${this.value.realName}</h3>
-                <div>手机: &nbsp; ${this.value.phoneNum}</div>
-                <div>身份证: &nbsp; ${this.value.personId}</div>
-            </fieldset>        
-        `
+        return html`<section>
+                <small>${this.label}: &nbsp;</small>
+                <div>
+                    <div class="one-line">
+                        <strong>${this.value.realName}&nbsp;</strong>
+                        <div>手机: &nbsp; ${this.value.phoneNum}</div>
+                    </div>
+                    <div>身份证: &nbsp; ${this.value.personId}</div>
+                </div>
+            </section>`
     }
 
     static styles = [
-        smallStyles,
+        sectionView,
         css`
+            div.one-line {
+                display: flex;
+                align-items: center;
+            }
         `
     ]
 

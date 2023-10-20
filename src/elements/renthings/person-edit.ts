@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { inputStyles, smallStyles } from "../my-styles";
 import { NAME_MAX_LENGTH, NAME_MIN_LENGTH, PERSONID_LENGTH, PHONENUM_LENGTH, Person } from "../../models/person";
+import { inputStyles, smallStyles } from "../styles/edit-styles";
 
 const realNamePattern = `^\S.{${NAME_MIN_LENGTH - 2},${NAME_MAX_LENGTH - 2}}\S$`
 const realNamePlaceholder = `${NAME_MIN_LENGTH} - ${NAME_MAX_LENGTH}个汉字`

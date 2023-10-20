@@ -1,6 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { inputStyles, smallStyles } from "../my-styles";
+import { inputStyles, smallStyles } from "../styles/edit-styles";
 
 @customElement('input-number')
 export default class InputNumber extends LitElement {

@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { smallStyles } from "../my-styles";
 import { styleMap } from "lit/directives/style-map.js";
+import { smallStyles } from "../styles/edit-styles";
 
 @customElement('check-group')
 export class CheckGroup extends LitElement {

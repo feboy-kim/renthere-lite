@@ -5,6 +5,7 @@ import "../widgets/check-group"
 import "../widgets/radio-group"
 import "../widgets/input-text"
 import { MAX_TEXT_LENGTH, MIN_TEXT_LENGTH, applianceDict, facilityDict, sundryFeeDict } from "../../models/there-m";
+import { bottomRight } from "../styles/edit-styles";
 
 @customElement('flathing-form')
 export default class FlathingForm extends LitElement {
@@ -31,7 +32,7 @@ export default class FlathingForm extends LitElement {
         this._sundryFees = this.thing.sundryFees
     }
 
-    private readonly _canceline = "取消"
+    private readonly _canceline = "取消 ✘"
 
     _handleSubmit(e: SubmitEvent) {
         e.preventDefault()
@@ -73,22 +74,21 @@ export default class FlathingForm extends LitElement {
             <check-group .booleanum=${this._sundryFees} .optionDict=${sundryFeeDict} title="杂费" 
                 @toggle-check=${(e: CustomEvent) => this._sundryFees = e.detail.n}></check-group>
 
-            <div class="submitter">    
+            <div class="bottom-right">    
                 <input type="submit" value=${this._canceline} formnovalidate />
-                <input type="submit" value="保存" />
+                <input type="submit" value="保存 ✔" />
             </div>
         </form>`
     }
 
 
     static styles = [
+        bottomRight,
         css`
-            input[type='submit'] {
-                font-size: initial;
-                cursor: pointer;
-                padding: 0.3rem 0.6rem;
+            form {
+                margin: 0.2rem 0.5rem;
             }
-            div.submitter {
+            div.bottom-right {
                 margin: 0.2rem;
             }
         `

@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { smallStyles } from "../my-styles";
 import { Sumoney } from "../../models/sumoney";
+import { sectionView } from "../styles/view-styles";
 
 @customElement('money-view')
 export default class MoneyView extends LitElement {
@@ -9,19 +9,18 @@ export default class MoneyView extends LitElement {
     @property({ type: Object }) value!: Sumoney
 
     protected render(): unknown {
-        return html`
-            <fieldset>
-                <legend><small>${this.label}</small></legend>
-                <div>
-                    <span>${`￥${this.value.numeral} (${this.value.sinoNum})`}</span>
-                </div>
-            </fieldset>        
-        `
+        return html`<section>
+            <small>${this.label}</small>
+            <div>
+                <span>${`￥${this.value.numeral} (${this.value.sinoNum})`}</span>
+            </div>
+        </section>`
     }
 
     static styles = [
-        smallStyles,
+        sectionView,
         css`
+            
         `
     ]
 

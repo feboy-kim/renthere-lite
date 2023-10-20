@@ -5,7 +5,6 @@ import { customElement } from "lit/decorators.js";
 export default class HomePage extends LitElement {
     protected render(): unknown {
         return html`
-            <div>Home Page</div>
         `
     }
 

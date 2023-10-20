@@ -4,6 +4,7 @@ export const smallSvg = css`
     .small-svg {
         opacity: 0.75;
         fill: none;
+        transform: scale(0.8);
     }
     .small-svg > path {
         stroke: currentColor;

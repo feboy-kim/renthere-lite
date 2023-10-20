@@ -1,7 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import './elements/header-nav'
-import './elements/the-footer'
 import './elements/flathings/flat-index'
 import './elements/renthings/rent-index'
 import './elements/flathings/thing-edit'
@@ -72,25 +71,37 @@ export class AppElement extends LitElement {
       </header>
       <main>${this._page}</main>
       <footer>
-        <p>
-          ${new Date().getFullYear()} &nbsp; <span>Renthere</span>
-        </p>
+        <span>&copy;&nbsp;${new Date().getFullYear()} &nbsp; Renthere</span>
       </footer>
     `
   }
 
   static styles = css`
     :host {
-      max-width: 1280px;
-      margin: 0 auto;
       display: flex;
       flex-flow: column nowrap;
       justify-content: space-between;
       min-height: 100vh;
     }
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      z-index: 10;
+    }
+    header {
+      background-color: #4169e132;
+    }
+    footer {
+      background-color: #4169e120;
+      opacity: 0.7;
+    }
+    footer > span {
+      display: block;
+      padding: 0.8rem;
+    }
     header, footer {
       flex: none;
-      margin: 0.4rem 0.8rem;
     }
   `
 }

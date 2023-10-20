@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { inputStyles, smallStyles } from "../my-styles";
 import { MAX_SINO_LENGTH, MIN_SINO_LENGTH, Sumoney } from "../../models/sumoney";
+import { inputStyles, smallStyles } from "../styles/edit-styles";
 
 const sinoPattern = `\S{${MIN_SINO_LENGTH},${MAX_SINO_LENGTH}}`
 const placeholder = `${MIN_SINO_LENGTH} - ${MAX_SINO_LENGTH} 个汉字`

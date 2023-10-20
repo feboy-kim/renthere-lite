@@ -1,7 +1,9 @@
 import { Task } from "@lit/task";
-import { LitElement, css, html, nothing } from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { getFlatuples } from "../../dex/db-reader";
+import "../widgets/my-popover"
+import { listStyles } from "../styles/view-styles";
 
 @customElement('flat-select')
 export default class FlatSelect extends LitElement {
@@ -17,33 +19,35 @@ export default class FlatSelect extends LitElement {
         return this._flatask.render({
             pending: () => html`<p>Loading ...</p>`,
             complete: (flats) => {
+                const labeline = flats.find(it => it.flatId === this.flatId)?.address ?? "选择租约之房 ..."
                 return html`
                     <fieldset>
                         <legend><small>${this.label}</small></legend>
-                        <select required @change=${this._onSelected}>
-                            ${flats.find(it => it.flatId === this.flatId) ? nothing: html`<option value="">选择租约之房 ...</option>`}
-                            ${flats.map(it => html`
-                                <option .selected=${it.flatId === this.flatId} .value=${it.flatId!.toString()}>
-                                    ${it.address}
-                                </option>
-                            `)}
-                            </select>
+                        <my-popover .label=${labeline}>
+                            <ul>
+                                ${flats.map(it => html`
+                                    <li @click=${() => this._onSelected(it.flatId)}>
+                                        <span>${it.address}</span>
+                                    </li>
+                                `)}
+                            </ul>
+                        </my-popover>
                     </fieldset>
             `},
             error: (e) => html`<p>Error: ${e}</p>`
         })
     }
 
-    private _onSelected(e: Event) {
-        const elem = e.currentTarget as HTMLSelectElement
-        const data = Number.parseInt(elem.value)
-        this.dispatchEvent(new CustomEvent('flat-selected', {detail: {d: data}, bubbles: true, composed: false}))
+    private _onSelected(d: number) {
+        this.dispatchEvent(new CustomEvent('flat-selected', { detail: { d }, bubbles: true, composed: false }))
     }
 
     static styles = [
+        listStyles,
         css`
-            select {
-                padding: 0.3rem 0.6rem;
+            ul {
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
             }
         `
     ]

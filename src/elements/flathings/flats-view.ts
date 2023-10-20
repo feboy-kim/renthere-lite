@@ -2,8 +2,8 @@ import { Task } from "@lit/task";
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { getFlatuples } from "../../dex/db-reader";
-import { listStyles } from "../my-styles";
 import { router } from "../../app-helper";
+import { listStyles } from "../styles/view-styles";
 
 @customElement('flathings-view')
 export default class FlathingsView extends LitElement {
@@ -17,7 +17,7 @@ export default class FlathingsView extends LitElement {
             pending: () => html`<p>Loading ...</p>`,
             complete: (tuples) => html`<ul>
                 ${tuples.map(it => html`<li @click=${() => router.navigate(`/flats/view/${it.flatId}`)}>
-                    ${it.address}
+                   <span>${it.address}</span>
                 </li>`)}
             </ul>`,
             error: (e) => html`<p>Error: ${e}</p>`
@@ -27,11 +27,8 @@ export default class FlathingsView extends LitElement {
     static styles = [
         listStyles,
         css`
-            li {
-                cursor: pointer;
-                padding: 0.4rem 0.6rem;
+            span {
                 margin: 0.2rem;
-                text-align: center;
             }
         `
     ]
