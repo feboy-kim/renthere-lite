@@ -13,10 +13,10 @@ export const smallSvg = css`
 `
 export const largeSvg = css`
     .large-svg {
-        opacity: 0.50;
+        opacity: 0.5;
         fill: none;
-        transform-origin: left;
-        transform: scale(2)
+        display: none;
+        transform: scale(2);
     }
     .large-svg > path {
         stroke: currentColor;
@@ -24,12 +24,13 @@ export const largeSvg = css`
     }
     @media(min-width: 640px) {
         .large-svg {
-            transform: scale(4)
+            display: inline-block;
+            transform: scale(4);
         }
     }
     @media(min-width: 960px) {
         .large-svg {
-            transform: scale(6)
+            transform: scale(6);
         }
     }
 

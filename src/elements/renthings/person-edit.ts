@@ -18,19 +18,25 @@ export default class PersonEdit extends LitElement {
     protected render(): unknown {
         return html`<fieldset>
             <legend><small>${this.label}</small></legend>
-            <div>
-                <small>姓名</small>
-                <input type="text" .value=${this.value.realName} .minLength=${NAME_MIN_LENGTH}
-                    required .maxLength=${NAME_MAX_LENGTH} pattern=${realNamePattern} 
-                    .placeholder=${realNamePlaceholder} @input=${this._onRealNameInput} />
-                <small>手机</small>
-                <input type="text" .value=${this.value.phoneNum} 
-                    required .maxLength=${PHONENUM_LENGTH} pattern=${phoneNumPattern} 
-                    .placeholder=${phoneNumPlaceholder} @input=${this._onPhoneNumInput} />
-                <small>身份证</small>
-                <input type="text" .value=${this.value.personId} 
-                    required .maxLength=${PERSONID_LENGTH} pattern=${personIdPattern} 
-                    .placeholder=${personIdPlaceholder} @input=${this._onPersonIdInput} />
+            <div class="container">
+                <div class="flex-group">
+                    <small>姓名</small>
+                    <input type="text" .value=${this.value.realName} .minLength=${NAME_MIN_LENGTH}
+                        required .maxLength=${NAME_MAX_LENGTH} pattern=${realNamePattern}
+                        .placeholder=${realNamePlaceholder} @input=${this._onRealNameInput} />
+                </div>
+                <div class="flex-group">
+                    <small>手机</small>
+                    <input type="text" .value=${this.value.phoneNum} 
+                        required .maxLength=${PHONENUM_LENGTH} pattern=${phoneNumPattern} 
+                        .placeholder=${phoneNumPlaceholder} @input=${this._onPhoneNumInput} />
+                </div>
+                <div class="flex-group">
+                    <small>身份证</small>
+                    <input type="text" .value=${this.value.personId} 
+                        required .maxLength=${PERSONID_LENGTH} pattern=${personIdPattern} title="身份证编号"
+                        .placeholder=${personIdPlaceholder} @input=${this._onPersonIdInput} />
+                </div>
             </div>
         </fieldset>`
     }
@@ -38,24 +44,39 @@ export default class PersonEdit extends LitElement {
     private _onRealNameInput(e: InputEvent) {
         const elem = e.currentTarget as HTMLInputElement
         const data = elem.value.trimStart()
-        this.dispatchEvent(new CustomEvent('person-changed', { detail: { ...this.value, realName: data }, bubbles: true, composed: false }))
+        this.dispatchEvent(new CustomEvent('person-changed',
+            { detail: { ...this.value, realName: data }, bubbles: true, composed: false }))
     }
 
     private _onPhoneNumInput(e: InputEvent) {
         const elem = e.currentTarget as HTMLInputElement
         const data = elem.value.trimStart()
-        this.dispatchEvent(new CustomEvent('person-changed', { detail: { ...this.value, phoneNum: data }, bubbles: true, composed: false }))
+        this.dispatchEvent(new CustomEvent('person-changed',
+            { detail: { ...this.value, phoneNum: data }, bubbles: true, composed: false }))
     }
     private _onPersonIdInput(e: InputEvent) {
         const elem = e.currentTarget as HTMLInputElement
         const data = elem.value.trimStart()
-        this.dispatchEvent(new CustomEvent('person-changed', { detail: { ...this.value, personId: data }, bubbles: true, composed: false }))
+        this.dispatchEvent(new CustomEvent('person-changed',
+            { detail: { ...this.value, personId: data }, bubbles: true, composed: false }))
     }
 
     static styles = [
         smallStyles,
         inputStyles,
         css`
+            div.container {
+                display: grid;
+                grid-template-columns: 3fr 6fr 9fr;
+            }
+            div.flex-group small {
+                display: block;
+            }
+            div.flex-group input {
+                display: block;
+                box-sizing: border-box;
+                width: 100%;
+            }
         `
     ]
 

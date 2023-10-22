@@ -20,24 +20,31 @@ export const bottomRight = css`
         }
     }
 
-
 `
 export const flexButton = css`
     .flex-button {
         display: inline-flex; 
         font-size: inherit;
-        padding: 0.1rem 0.6rem;
+        padding: 0.2rem 0.6rem;
     }
 `
 
 export const smallStyles = css`
     small {
-        opacity: 0.7;
+        opacity: 0.75;
+        margin: 0.1rem;
     }
 `
 
 export const inputStyles = css`
     input {
         padding: 0.4rem 0.6rem;
+        font-size: inherit;
     }
+    input:invalid + span::after {
+        content: "✖";
+        color: red;
+        padding-left: .2rem;
+    }
+
 `

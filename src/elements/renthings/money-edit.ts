@@ -14,12 +14,13 @@ export default class MoneyEdit extends LitElement {
     protected render(): unknown {
         return html`<fieldset>
             <legend><small>${this.label}</small></legend>
-            <div>
+            <div class="flex-group">
                 <small>金额</small>
                 <input type="number" .value=${this.value.numeral.toString()} min="1" max="99999" 
                     size="6" @input=${this._onNumeralInput} />
+                <span class="number-validity"></span>
                 <input type="text" .value=${this.value.sinoNum} pattern=${sinoPattern} .minLength=${MIN_SINO_LENGTH}
-                    required .maxLength=${MAX_SINO_LENGTH} 
+                    required .maxLength=${MAX_SINO_LENGTH}
                     .placeholder=${placeholder} @input=${this._onSinoNumInput} />
             </div>
         </fieldset>`
@@ -41,6 +42,36 @@ export default class MoneyEdit extends LitElement {
         smallStyles,
         inputStyles,
         css`
+            div.flex-group {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+            }
+            div.flex-group small {
+                display: none;
+                flex: none;
+            }
+            div.flex-group input[type="number"] {
+                flex: none;
+            }
+            div.flex-group input[type="text"] {
+                flex: 1;
+            }
+            @media(min-width: 640px) {
+                div.flex-group small {
+                    display: block;
+                }
+            }
+            @media(min-width: 768px) {
+                div.flex-group small {
+                    display: none;
+                }
+            }
+            @media(min-width: 1024px) {
+                div.flex-group small {
+                    display: block;
+                }
+            }
         `
     ]
 

@@ -32,6 +32,8 @@ export const getFlatuple = async (id: string | number) => {
 export const getFlatuples = async (): Promise<Flatuple[]> =>
     (await db.flathings.toArray()).map(it => new Flatuple(it.id ?? 0, it.address))
 
+export const flathingCount = async(): Promise<number> => db.flathings.count()
+
 // renthing related
 export const getRenthing = async (id: string | number) => {
     if (typeof id === "string") {
@@ -54,4 +56,6 @@ export const getRentuple = async (id: string | number) => {
 }
 export const getRentuples = async (): Promise<Rentuple[]> =>
     (await db.renthings.toArray()).map(it => new Rentuple(it.id ?? 0, it.lessor.realName, it.lessee.realName, it.startDate))
+
+export const renthingCount = async(): Promise<number> => db.renthings.count()
 

@@ -8,10 +8,16 @@ import { router } from "../../app-helper";
 import { largeSvg } from "../styles/svg-styles";
 import { bottomRight, flexButton } from "../styles/edit-styles";
 import { masterDetail } from "../styles/master-detail";
+import { therenv } from "../../there-env";
 
 @customElement('rent-deleter')
 export default class RentDeleter extends LitElement {
     @property({ type: Number }) thingId!: number
+
+    constructor() {
+        super()
+        document.title = "删除租约 - " + therenv.appName
+    }
 
     private _flatask = new Task(this, {
         task: async ([id]) => await getRentuple(id),
@@ -25,7 +31,7 @@ export default class RentDeleter extends LitElement {
                 <div class="master-detail">
                     <div class="master">
                         <h3>删除</h3>
-                        <p>确定要删除《${thing.lessor + "-:-" + thing.lessee}》的租约数据吗？</p>
+                        <p>确定要删除《${thing.lessor + " -:- " + thing.lessee}》的租约数据吗？</p>
                     </div>
                     <div class="detail-svg">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  weight="24" height="24" class="large-svg">
@@ -38,9 +44,10 @@ export default class RentDeleter extends LitElement {
                     <button type="button" @click=${() => router.navigate(`/rents/view/${this.thingId}`)} class="flex-button">
                         <span>取消 \u2718</span>
                     </button>
-                    <button type="button" @click=${() => deleteRenthing(thing.rentId)
-                    .then(() => router.navigate(`/rents/view`, { historyAPIMethod: 'replaceState' })
-                    ).catch(e => console.error(e))} class="flex-button">
+                    <button type="button" @click=${() =>
+                    deleteRenthing(thing.rentId)
+                        .then(() => router.navigate(`/rents/view`, { historyAPIMethod: 'replaceState' })
+                        ).catch(e => console.error(e))} class="flex-button">
                         <span>确定 \u2714</span>
                     </button>
                 </div>
@@ -55,6 +62,14 @@ export default class RentDeleter extends LitElement {
         flexButton,
         bottomRight,
         css`
+            div.master {
+                margin: 0.2rem;
+                padding: 0.2rem 0.4rem;
+            }
+            div.detail-svg {
+                display: flex;
+                justify-content: center;
+            }
             div.bottom-right {
                 margin: 0.2rem;
             }

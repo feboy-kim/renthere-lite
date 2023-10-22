@@ -51,7 +51,7 @@ export default class HeaderNav extends LitElement {
       }
       a.logo {
         padding: 0.2rem 0.6rem;
-        margin: 0.1rem;
+        margin: 0.2rem;
       }
     `
   ]

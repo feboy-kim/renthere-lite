@@ -6,10 +6,10 @@ import "../widgets/input-number"
 import "../widgets/input-text"
 import "../widgets/check-group"
 import "../widgets/radio-group"
-import "../widgets/date-picker"
 import "./money-edit"
 import "./person-edit"
 import "./flat-select"
+import "./start-date"
 import { Person } from "../../models/person";
 import { Sumoney } from "../../models/sumoney";
 import { bottomRight } from "../styles/edit-styles";
@@ -17,7 +17,7 @@ import { bottomRight } from "../styles/edit-styles";
 @customElement('renthing-form')
 export default class RenthingForm extends LitElement {
     @property({ type: Object }) thing!: Renthing
-    
+
     @state() private _lessor!: Person
     @state() private _lessee!: Person
     @state() private _flatId!: number
@@ -71,29 +71,40 @@ export default class RenthingForm extends LitElement {
 
     protected render(): unknown {
         return html`<form @submit=${this._handleSubmit}>
-            <person-edit label="甲方（出租人）" .value=${this._lessor}
-                @person-changed=${(e: CustomEvent) => this._lessor = e.detail}></person-edit>
-            <person-edit label="乙方（承租人）" .value=${this._lessee}
-                @person-changed=${(e: CustomEvent) => this._lessee = e.detail}></person-edit>
-            <flat-select label="可用房屋" .flatId=${this._flatId}
-                @flat-selected=${(e: CustomEvent) => this._flatId = e.detail.d}></flat-select>
-            <radio-group .selected=${this._shared ? 1 : 0} .optionDict=${Renthing.flatSharedDict} title="整租还是合租"
-                @radio-selected=${(e: CustomEvent) => this._shared = e.detail.k > 0}></radio-group>
-            <check-group .booleanum=${this._allowances} .optionDict=${Renthing.allowanceDict} title="允许乙方" 
-                @toggle-check=${(e: CustomEvent) => this._allowances = e.detail.n}></check-group>
-            <date-picker label="起始日期" .value=${this._startDate} 
-                @date-selected=${(e: CustomEvent) => this._startDate = e.detail.d}></date-picker>
-            <money-edit label="月租（元）" .value=${this._monthFee}
-                @money-changed=${(e: CustomEvent) => this._monthFee = e.detail}></money-edit>
-            <money-edit label="押金（元）" .value=${this._foregift}
-                @money-changed=${(e: CustomEvent) => this._foregift = e.detail}></money-edit>
-            <input-number label="租期（月）" .value=${this._leaseTerm} 
-                @number-changed=${(e: CustomEvent) => this._leaseTerm = e.detail.d}></input-number>
-            <input-number label="付款周期（月）" .value=${this._payCycle} .max=${this._leaseTerm}
-                @number-changed=${(e: CustomEvent) => this._payCycle = e.detail.d}></input-number>
-            <input-text label="附加条款" .value=${this._supplement} .maxLength=${MAX_TEXT_LENGTH}
-                @text-changed=${(e: CustomEvent) => this._supplement = e.detail.d}></input-text>
-
+            <div class="lg-2-cols">
+                <person-edit label="甲方（出租人）" .value=${this._lessor}
+                    @person-changed=${(e: CustomEvent) => this._lessor = e.detail}></person-edit>
+                <person-edit label="乙方（承租人）" .value=${this._lessee}
+                    @person-changed=${(e: CustomEvent) => this._lessee = e.detail}></person-edit>
+            </div>
+            <div class="sm-2-cols">
+                <flat-select label="可用房屋" .flatId=${this._flatId}
+                    @flat-selected=${(e: CustomEvent) => this._flatId = e.detail.d}></flat-select>
+                <div style="display: flex;">
+                    <radio-group .selected=${this._shared ? 1 : 0} .optionDict=${Renthing.flatSharedDict} title="整租还是合租"
+                        @radio-selected=${(e: CustomEvent) => this._shared = e.detail.k > 0}></radio-group>
+                    <check-group .booleanum=${this._allowances} .optionDict=${Renthing.allowanceDict} title="允许乙方" 
+                        @toggle-check=${(e: CustomEvent) => this._allowances = e.detail.n}></check-group>
+                </div>
+            </div>
+            <div class="md-2-cols">
+                <money-edit label="月租（元）" .value=${this._monthFee}
+                    @money-changed=${(e: CustomEvent) => this._monthFee = e.detail}></money-edit>
+                <money-edit label="押金（元）" .value=${this._foregift}
+                    @money-changed=${(e: CustomEvent) => this._foregift = e.detail}></money-edit>
+            </div>
+            <div class="md-flex">
+                <div style="display: flex;">
+                    <start-date label="起始日期" .value=${this._startDate} 
+                        @date-selected=${(e: CustomEvent) => this._startDate = e.detail.d}></start-date>
+                    <input-number label="租期（月）" .value=${this._leaseTerm} 
+                        @number-changed=${(e: CustomEvent) => this._leaseTerm = e.detail.d}></input-number>
+                    <input-number label="付款（月）" .value=${this._payCycle} .max=${this._leaseTerm} title="付款周期"
+                        @number-changed=${(e: CustomEvent) => this._payCycle = e.detail.d}></input-number>
+                </div>
+                <input-text label="附加条款" style="flex: 1;" .value=${this._supplement} .maxLength=${MAX_TEXT_LENGTH}
+                    @text-changed=${(e: CustomEvent) => this._supplement = e.detail.d}></input-text>
+            </div>
             <div class="bottom-right">    
                 <input type="submit" value=${this._canceline} formnovalidate />
                 <input type="submit" value="保存 ✔" />
@@ -110,7 +121,28 @@ export default class RenthingForm extends LitElement {
             div.bottom-right {
                 margin: 0.2rem;
             }
-        
+            div.sm-2-cols, div.md-2-cols, div.lg-2-cols {
+                display: grid;
+                grid-column-gap: 2px;
+            }
+            @media(min-width: 640px) {
+                div.sm-2-cols {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            @media(min-width: 768px) {
+                div.md-2-cols {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                div.md-flex {
+                    display: flex;
+                }
+            }
+            @media(min-width: 1024px) {
+                div.lg-2-cols {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
         `
     ]
 

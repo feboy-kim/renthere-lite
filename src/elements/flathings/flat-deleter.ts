@@ -8,10 +8,16 @@ import Flatuple from "../../models/flatuple";
 import { largeSvg } from "../styles/svg-styles";
 import { bottomRight, flexButton } from "../styles/edit-styles";
 import { masterDetail } from "../styles/master-detail";
+import { therenv } from "../../there-env";
 
 @customElement('flat-deleter')
 export default class FlatDeleter extends LitElement {
     @property({ type: Number }) thingId!: number
+
+    constructor() {
+        super()
+        document.title = "删除房屋 - " + therenv.appName
+    }
 
     private _flatask = new Task(this, {
         task: async ([id]) => await getFlatuple(id),
@@ -55,6 +61,14 @@ export default class FlatDeleter extends LitElement {
         bottomRight,
         flexButton,
         css`
+            div.master {
+                margin: 0.2rem;
+                padding: 0.2rem 0.4rem;
+            }
+            div.detail-svg {
+                display: flex;
+                justify-content: center;
+            }
             div.bottom-right {
                 margin: 0.2rem;
             }

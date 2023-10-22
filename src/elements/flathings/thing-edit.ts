@@ -6,11 +6,17 @@ import { addFlathing, putFlathing } from "../../dex/db-writer"
 import { router } from "../../app-helper"
 import { Task } from "@lit/task"
 import { getFlathing } from "../../dex/db-reader"
+import { therenv } from "../../there-env"
 
 @customElement('flathing-edit')
 export default class FlathingEdit extends LitElement {
     @property({ type: Number }) thingId?: number
     private _thing!: Flathing
+
+    constructor() {
+        super()
+        document.title = "编辑房屋 - " + therenv.appName
+    }
 
     private _flatask = new Task(this, {
         task: async ([id]) => {

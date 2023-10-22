@@ -13,6 +13,7 @@ export class CheckGroup extends LitElement {
         return html`
             <fieldset style=${styleMap(this.styles)}>
                 <legend><small>${this.title}</small></legend>
+                <div>
                 ${this.optionDict.map(kv => {
             const isChecked = (1 << kv[0] & this.booleanum) > 0
             return html`<label>
@@ -20,6 +21,7 @@ export class CheckGroup extends LitElement {
                         @change=${() => this._onChange(kv[0], isChecked)} />
                     <span>${kv[1]}</span>
                 </label>`})}
+                </div>
             </fieldset>
         `
     }
@@ -32,6 +34,19 @@ export class CheckGroup extends LitElement {
     static styles = [
         smallStyles,
         css`
+            div {
+                display: flex;
+                flex-flow: row wrap;
+                gap: 0.2rem;
+            }
+            label {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+            }
+            label > span {
+                flex: none;
+            }
         `
     ]
 

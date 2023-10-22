@@ -7,6 +7,7 @@ import "./money-view"
 import Leasegg from "../../models/leasegg";
 import Renthing from "../../models/renthing";
 import { smallSvg } from "../styles/svg-styles";
+import { linkStyles } from "../styles/link-styles";
 
 const arrayHtmline = (title: string, data: string[]) =>
     data.length > 0 ? html`<p><small>${title}:</small>  &nbsp;${data.map(d => html`<span>${d}, &nbsp;</span>`)}</p>` : nothing
@@ -26,14 +27,16 @@ export default class RenthingView extends LitElement {
             complete: (thing?: Leasegg) => thing ? html`<section>
                 <person-view label="甲方（出租人）" .value=${thing.lessor}></person-view>
                 <person-view label="乙方（承租人）" .value=${thing.lessee}></person-view>
-                <p><small>地址:</small> ${thing.address ? html`<strong>&nbsp; ${thing.address}</strong>` : html`<strong>&nbsp; 请补充房屋信息！</strong>`}</p>
+                <p><small>地址:</small> ${thing.address
+                    ? html`<strong>&nbsp; ${thing.address}</strong>`
+                    : html`<strong>&nbsp; <a href="/flats/view" title="租约之房" data-navigo>请补充房屋信息！</a></strong>`}</p>
                 <money-view label="月租（元）" .value=${thing.monthFee}></money-view>
                 <money-view label="押金（元）" .value=${thing.foregift}></money-view>
                 <p><small>起始日期: </small>&nbsp; ${thing.startDate}&nbsp;</p>
                 <p><small>租期: </small>&nbsp; ${thing.leaseTerm}个月,&nbsp;<small>付款周期:</small> &nbsp; ${thing.payCycle}个月</p>
                 <div><small>约定:</small> &nbsp; 
                     ${Renthing.allowanceDict.map(kv => (1 << kv[0] & thing.allowances) > 0 ?
-                html`<span>允许乙方${kv[1]}</span>,&nbsp;` : html`<span>禁止乙方${kv[1]}</span>,&nbsp;`)}
+                        html`<span>允许乙方${kv[1]}</span>,&nbsp;` : html`<span>禁止乙方${kv[1]}</span>,&nbsp;`)}
                     <span>${thing.shared ? "合租" : "整租"} &nbsp;</span> 
                 </div>
                 <p>${arrayHtmline("甲方提供", thing.appliances)}</p>
@@ -46,6 +49,7 @@ export default class RenthingView extends LitElement {
 
     static styles = [
         smallSvg,
+        linkStyles,
         css`
             section {
                 margin: 0.8rem;

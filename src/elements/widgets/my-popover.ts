@@ -1,21 +1,17 @@
 import { autoPlacement, computePosition, offset, shift } from "@floating-ui/dom";
 import { LitElement, css, html } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
+import { smallSvg } from "../styles/svg-styles";
 
 @customElement('my-popover')
 export default class MyPopover extends LitElement {
-    @property({ type: String }) label!: string
+    @property({ type: String }) current!: string
 
-    @query("div")
-    _popper: HTMLDivElement | undefined
+    @query("div") private _popper: HTMLDivElement | undefined
+    @query("button") private _button: HTMLElement | undefined
+    @query("article") private _article: HTMLElement | undefined
 
-    @query("button")
-    _button: HTMLElement | undefined
-
-    @query("article")
-    _article: HTMLElement | undefined
-
-    @state() _popped = false
+    @state() private _popped = false
 
     private _show() {
         const b = this._button as HTMLElement
@@ -25,11 +21,13 @@ export default class MyPopover extends LitElement {
             .then(({ x, y }) => {
                 Object.assign(t.style, { left: `${x}px`, top: `${y}px` })
             })
+        this._popped = true;
     }
 
     private _hide() {
         const t = this._article as HTMLElement
         t.style.display = ""
+        this._popped = false;
     }
 
     private _handleMouseUp = (me: MouseEvent) => {
@@ -57,8 +55,14 @@ export default class MyPopover extends LitElement {
     protected render(): unknown {
         return html`
             <div>
-                <button @click=${() => { this._show() }} @focus=${() => this._show()}>
-                    ${this.label}
+                <button @click=${() => { this._show() }}>
+                   ${this.current}${this._popped
+                    ? html`<div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="small-svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
+                    </svg>`
+                    : html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="small-svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
+                    </svg>`}
                 </button>
                 <article>
                     <section><slot></slot></section>
@@ -67,9 +71,15 @@ export default class MyPopover extends LitElement {
         `
     }
     static styles = [
+        smallSvg,
         css`
             button {
-                padding: 0.4rem 0.6rem;
+                font-size: inherit;
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.2rem 0.5rem;
             }
             article {
                 display: none;
@@ -79,12 +89,14 @@ export default class MyPopover extends LitElement {
             }
             article > section {
                 margin: 0.2rem 0.6rem;
-                background-color: darkslategray;
+                color: darkslategray;
+                background-color: lightgray;
                 border-radius: 4px;
             }
             @media (prefers-color-scheme: light) {
                 article > section {
                     color: lightgray;
+                    background-color: darkslategray;
                 }
             }
         `

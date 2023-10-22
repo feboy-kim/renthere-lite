@@ -19,18 +19,16 @@ export default class FlatSelect extends LitElement {
         return this._flatask.render({
             pending: () => html`<p>Loading ...</p>`,
             complete: (flats) => {
-                const labeline = flats.find(it => it.flatId === this.flatId)?.address ?? "选择租约之房 ..."
+                const current = flats.find(it => it.flatId === this.flatId)?.address ?? "选择租约之房 ..."
                 return html`
                     <fieldset>
                         <legend><small>${this.label}</small></legend>
-                        <my-popover .label=${labeline}>
-                            <ul>
-                                ${flats.map(it => html`
-                                    <li @click=${() => this._onSelected(it.flatId)}>
-                                        <span>${it.address}</span>
-                                    </li>
-                                `)}
-                            </ul>
+                        <my-popover .current=${current}>
+                            <ul>${flats.map(it => html`
+                                <li @click=${() => this._onSelected(it.flatId)}>
+                                    <span>${it.address}</span>
+                                </li>
+                            `)}</ul>
                         </my-popover>
                     </fieldset>
             `},

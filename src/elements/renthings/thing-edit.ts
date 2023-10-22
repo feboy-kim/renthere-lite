@@ -6,11 +6,17 @@ import { Task } from "@lit/task"
 import { getRenthing } from "../../dex/db-reader"
 import { addRenthing, putRenthing } from "../../dex/db-writer"
 import { router } from "../../app-helper"
+import { therenv } from "../../there-env"
 
 @customElement('renthing-edit')
 export default class RenthingEdit extends LitElement {
     @property({ type: Number }) thingId?: number
     private _thing!: Renthing
+
+    constructor() {
+        super()
+        document.title = "编辑租约 - " + therenv.appName
+    }
 
     private _rentask = new Task(this, {
         task: async ([id]) => {

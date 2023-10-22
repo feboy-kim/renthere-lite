@@ -15,8 +15,10 @@ export default class InputText extends LitElement {
         return html`
             <fieldset>
                 <legend><small>${this.label}</small></legend>
-                <input type="text" .value=${this.value} .minLength=${this.minLength}
-                    ?required=${this.minLength > 0} .maxLength=${this.maxLength} .placeholder=${placeholder} @input=${this._onInput} />
+                <div>
+                    <input type="text" .value=${this.value} .minLength=${this.minLength}
+                        ?required=${this.minLength > 0} .maxLength=${this.maxLength} .placeholder=${placeholder} @input=${this._onInput} />
+                </div>
             </fieldset>
         `
     }
@@ -29,7 +31,14 @@ export default class InputText extends LitElement {
     static styles = [
         smallStyles,
         inputStyles,
-        css``
+        css`
+            div {
+                display: grid;
+            }
+            input[type="text"] {
+                min-width: max-content;
+            }
+        `
     ]
 
 }

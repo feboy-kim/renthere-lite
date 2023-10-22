@@ -90,10 +90,10 @@ export class AppElement extends LitElement {
       z-index: 10;
     }
     header {
-      background-color: #4169e132;
+      background-color: #4169e13F;
     }
     footer {
-      background-color: #4169e120;
+      background-color: #4169e12F;
       opacity: 0.7;
     }
     footer > span {

@@ -3,12 +3,12 @@ import { css } from "lit";
 export const linkStyles = css`
     a {
         font-weight: 500;
-        padding: 0.2rem 0.6rem;
-        color: silver;
+        padding: 0.2rem 0.4rem;
+        color: skyblue;
         text-decoration: inherit;
     }
     a:hover {
-        color: gray;
+        color: thistle;
         text-decoration: underline;
         text-underline-offset: 0.4rem;
     }
@@ -21,7 +21,10 @@ export const linkStyles = css`
 
     @media (prefers-color-scheme: light) {
         a {
-            color: darkslategray;
+            color: saddlebrown;
+        }
+        a:hover {
+            color: slateblue;
         }
     }
 

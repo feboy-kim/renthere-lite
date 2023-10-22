@@ -26,6 +26,7 @@ export default class PersonView extends LitElement {
         css`
             div.one-line {
                 display: flex;
+                flex-flow: row nowrap;
                 align-items: center;
             }
         `

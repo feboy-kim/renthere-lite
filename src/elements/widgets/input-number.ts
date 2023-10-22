@@ -16,7 +16,8 @@ export default class InputNumber extends LitElement {
             <fieldset>
                 <legend><small>${this.label}</small></legend>
                 <input type="number" .value=${this.value.toString()} .min=${this.min.toString()} .max=${maxVal.toString()} 
-                    .size=${this.size + 1} @input=${this._onInput} />
+                    .size=${this.size + 1} @input=${this._onInput} required />
+                <span class="validity"></span>
             </fieldset>
         `
     }
@@ -30,7 +31,9 @@ export default class InputNumber extends LitElement {
     static styles = [
         smallStyles,
         inputStyles,
-        css``
+        css`
+        
+        `
     ]
 
 }
