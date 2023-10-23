@@ -10,13 +10,13 @@ import { smallSvg } from "../styles/svg-styles";
 export default class FlathingView extends LitElement {
     @property({ type: Number }) thingId!: number
 
-    private _flatask = new Task(this, {
+    private _task = new Task(this, {
         task: async ([id]) => await getFlathing(id),
         args: () => [this.thingId]
     })
 
     protected render(): unknown {
-        return this._flatask.render({
+        return this._task.render({
             pending: () => html`<p>Loading ...</p>`,
             complete: (thing?: Flathing) => thing ? html`<section>
                 <h3>${thing.address}</h3>

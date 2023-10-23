@@ -6,9 +6,11 @@ import Rentuple from "../../models/rentuple";
 import { deleteRenthing } from "../../dex/db-writer";
 import { router } from "../../app-helper";
 import { largeSvg } from "../styles/svg-styles";
-import { bottomRight, flexButton } from "../styles/edit-styles";
+import { bottomFixed, submitStyles } from "../styles/edit-styles";
 import { masterDetail } from "../styles/master-detail";
 import { therenv } from "../../there-env";
+
+const canceline = "取消 ✘"
 
 @customElement('rent-deleter')
 export default class RentDeleter extends LitElement {
@@ -19,15 +21,27 @@ export default class RentDeleter extends LitElement {
         document.title = "删除租约 - " + therenv.appName
     }
 
-    private _flatask = new Task(this, {
+    private _task = new Task(this, {
         task: async ([id]) => await getRentuple(id),
         args: () => [this.thingId]
     })
 
+    _handleSubmit(e: SubmitEvent) {
+        e.preventDefault()
+        if ((e.submitter as HTMLInputElement).value === canceline) {
+            router.navigate(`/rents/view/${this.thingId}`)
+        } else {
+            deleteRenthing(this.thingId)
+                .then(() => router.navigate(`/rents/view`, { historyAPIMethod: 'replaceState' }))
+                .catch(e => console.error(e))
+        }
+    }
+
+
     protected render(): unknown {
-        return this._flatask.render({
+        return this._task.render({
             pending: () => html`<p>Loading ...</p>`,
-            complete: (thing?: Rentuple) => thing ? html`
+            complete: (thing?: Rentuple) => thing ? html`<form @submit=${this._handleSubmit}>
                 <div class="master-detail">
                     <div class="master">
                         <h3>删除</h3>
@@ -41,17 +55,10 @@ export default class RentDeleter extends LitElement {
                     </div>
                 </div>
                 <div class="bottom-right">
-                    <button type="button" @click=${() => router.navigate(`/rents/view/${this.thingId}`)} class="flex-button">
-                        <span>取消 \u2718</span>
-                    </button>
-                    <button type="button" @click=${() =>
-                    deleteRenthing(thing.rentId)
-                        .then(() => router.navigate(`/rents/view`, { historyAPIMethod: 'replaceState' })
-                        ).catch(e => console.error(e))} class="flex-button">
-                        <span>确定 \u2714</span>
-                    </button>
+                    <input type="submit" value=${canceline} formnovalidate />
+                    <input type="submit" value="确定 ✔" />
                 </div>
-            `: nothing,
+            </form>`: nothing,
             error: (e) => html`<p>Error: ${e}</p>`
         })
     }
@@ -59,8 +66,8 @@ export default class RentDeleter extends LitElement {
     static styles = [
         largeSvg,
         masterDetail,
-        flexButton,
-        bottomRight,
+        bottomFixed,
+        submitStyles,
         css`
             div.master {
                 margin: 0.2rem;

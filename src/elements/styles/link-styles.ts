@@ -3,7 +3,7 @@ import { css } from "lit";
 export const linkStyles = css`
     a {
         font-weight: 500;
-        padding: 0.2rem 0.4rem;
+        padding: 0.3rem 0.5rem;
         color: skyblue;
         text-decoration: inherit;
     }

@@ -15,7 +15,7 @@ export default class HomePage extends LitElement {
     }
 
     private _task = new Task(this, {
-        task: async ([id]) => ({
+        task: async () => ({
             flatCount: await flathingCount(),
             rentCount: await renthingCount()
         }),

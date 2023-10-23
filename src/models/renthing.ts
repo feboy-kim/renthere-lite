@@ -54,7 +54,7 @@ export default class Renthing {
             && isPersonValid(this.lessee)
             && isSumoneyValid(this.monthFee)
             && isSumoneyValid(this.foregift)
-            && this.supplement.length <= MAX_TEXT_LENGTH
+            && this.supplement.trim().length <= MAX_TEXT_LENGTH
     }
 
     equals(d: Renthing): boolean {

@@ -3,7 +3,7 @@ import { LitElement, css, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { getLeasegg } from "../../dex/db-reader";
 import "./person-view"
-import "./money-view"
+import "./sumoney-view"
 import Leasegg from "../../models/leasegg";
 import Renthing from "../../models/renthing";
 import { smallSvg } from "../styles/svg-styles";
@@ -16,13 +16,13 @@ const arrayHtmline = (title: string, data: string[]) =>
 export default class RenthingView extends LitElement {
     @property({ type: Number }) thingId!: number
 
-    private _rentask = new Task(this, {
+    private _task = new Task(this, {
         task: async ([id]) => await getLeasegg(id),
         args: () => [this.thingId]
     })
 
     protected render(): unknown {
-        return this._rentask.render({
+        return this._task.render({
             pending: () => html`<p>Loading ...</p>`,
             complete: (thing?: Leasegg) => thing ? html`<section>
                 <person-view label="甲方（出租人）" .value=${thing.lessor}></person-view>

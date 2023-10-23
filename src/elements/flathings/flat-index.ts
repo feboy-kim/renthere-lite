@@ -5,7 +5,7 @@ import "./flats-view"
 import "../widgets/edit-links"
 import { largeSvg } from "../styles/svg-styles";
 import { masterDetail } from "../styles/master-detail";
-import { bottomRight } from "../styles/edit-styles";
+import { bottomFixed } from "../styles/edit-styles";
 import { therenv } from "../../there-env";
 
 const subject = "租约之房"
@@ -31,12 +31,14 @@ export default class FlathingsIndex extends LitElement {
                         </svg>
                     </div>`}
             </div>
+            <div class="bottom-left">
+                ${this.thingId ? html`<create-link href="/flats/edit"></create-link>` : nothing}
+            </div>
             <div class="bottom-right">
-                <create-link href="/flats/edit"></create-link>
                 ${this.thingId ? html`
                     <update-link href=${`/flats/edit/${this.thingId}`}></update-link>
                     <delete-link href=${`/flats/delete/${this.thingId}`}></delete-link>
-                ` : nothing}
+                ` : html`<create-link href="/flats/edit"></create-link>`}
             </div>
         `
     }
@@ -44,7 +46,7 @@ export default class FlathingsIndex extends LitElement {
     static styles = [
         largeSvg,
         masterDetail,
-        bottomRight,
+        bottomFixed,
         css`
             div.detail-svg {
                 display: flex;

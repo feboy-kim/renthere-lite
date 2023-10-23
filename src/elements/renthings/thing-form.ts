@@ -6,13 +6,15 @@ import "../widgets/input-number"
 import "../widgets/input-text"
 import "../widgets/check-group"
 import "../widgets/radio-group"
-import "./money-edit"
+import "./sumoney-edit"
 import "./person-edit"
 import "./flat-select"
 import "./start-date"
 import { Person } from "../../models/person";
 import { Sumoney } from "../../models/sumoney";
-import { bottomRight } from "../styles/edit-styles";
+import { bottomFixed, submitStyles } from "../styles/edit-styles";
+
+const canceline = "取消 ✘"
 
 @customElement('renthing-form')
 export default class RenthingForm extends LitElement {
@@ -45,11 +47,9 @@ export default class RenthingForm extends LitElement {
         this._supplement = this.thing.supplement
     }
 
-    private readonly _canceline = "取消 ✘"
-
     _handleSubmit(e: SubmitEvent) {
         e.preventDefault()
-        if ((e.submitter as HTMLInputElement).value === this._canceline) {
+        if ((e.submitter as HTMLInputElement).value === canceline) {
             this.dispatchEvent(new CustomEvent('submitted', { detail: {}, bubbles: true, composed: true }))
         } else {
             const d = Renthing.newEntity(
@@ -72,9 +72,9 @@ export default class RenthingForm extends LitElement {
     protected render(): unknown {
         return html`<form @submit=${this._handleSubmit}>
             <div class="lg-2-cols">
-                <person-edit label="甲方（出租人）" .value=${this._lessor}
+                <person-edit label="出租人" .value=${this._lessor}
                     @person-changed=${(e: CustomEvent) => this._lessor = e.detail}></person-edit>
-                <person-edit label="乙方（承租人）" .value=${this._lessee}
+                <person-edit label="承租人" .value=${this._lessee}
                     @person-changed=${(e: CustomEvent) => this._lessee = e.detail}></person-edit>
             </div>
             <div class="sm-2-cols">
@@ -106,14 +106,15 @@ export default class RenthingForm extends LitElement {
                     @text-changed=${(e: CustomEvent) => this._supplement = e.detail.d}></input-text>
             </div>
             <div class="bottom-right">    
-                <input type="submit" value=${this._canceline} formnovalidate />
+                <input type="submit" value=${canceline} formnovalidate />
                 <input type="submit" value="保存 ✔" />
             </div>
         </form>`
     }
 
     static styles = [
-        bottomRight,
+        bottomFixed,
+        submitStyles,
         css`
             form {
                 margin: 0.2rem 0.5rem;

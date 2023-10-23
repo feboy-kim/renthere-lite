@@ -1,34 +1,18 @@
 import { css } from "lit";
 
-export const bottomRight = css`
+export const bottomFixed = css`
+    .bottom-left {
+        position: fixed;
+        bottom: 0.5rem;
+        left: 0.5rem;
+    }
     .bottom-right {
         position: fixed;
         bottom: 0.5rem;
         right: 0.5rem;
     }
 
-    .bottom-right > input[type='submit'] {
-        font-size: inherit;
-        cursor: pointer;
-        padding: 0.1rem 0.6rem;
-        color: silver;
-    }
-
-    @media (prefers-color-scheme: light) {
-        .bottom-right > input[type='submit'] {
-            color: darkslategray;
-        }
-    }
-
 `
-export const flexButton = css`
-    .flex-button {
-        display: inline-flex; 
-        font-size: inherit;
-        padding: 0.2rem 0.6rem;
-    }
-`
-
 export const smallStyles = css`
     small {
         opacity: 0.75;
@@ -41,10 +25,28 @@ export const inputStyles = css`
         padding: 0.4rem 0.6rem;
         font-size: inherit;
     }
-    input:invalid + span::after {
-        content: "✖";
-        color: red;
-        padding-left: .2rem;
+    input:invalid {
+        border-color: crimson tomato;
+    }
+
+`
+export const submitStyles = css`
+    input[type='submit'] {
+        font-size: inherit;
+        padding: 0.2rem 0.6rem;
+        color: skyblue;
+    }
+    input[type='submit']:hover {
+        color: thistle;
+    }
+
+    @media (prefers-color-scheme: light) {
+        input[type='submit'] {
+            color: saddlebrown;
+        }
+        input[type='submit']:hover {
+            color: slateblue;
+        }
     }
 
 `

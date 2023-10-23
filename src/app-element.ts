@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit'
+import { LitElement, css, html, nothing } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import './elements/header-nav'
 import './elements/flathings/flat-index'
@@ -9,55 +9,72 @@ import './elements/not-found'
 import './elements/flathings/flat-deleter'
 import './elements/renthings/rent-deleter'
 import './elements/home-page'
+import './elements/leases/lease-view'
 import { router } from './app-helper'
 
 @customElement('app-element')
 export class AppElement extends LitElement {
-  @state() private _page = html``
+  @state() private _mainChild = html``
+  @state() private _yearShown = true
 
   constructor() {
     super()
     router.on({
       '/': () => {
-        this._page = html`<home-page></home-page>`
+        this._yearShown = true
+        this._mainChild = html`<home-page></home-page>`
+      },
+      '/lease/:id': ({ data }: { data: { id: number } }) => {
+        this._yearShown = true
+        this._mainChild = html`<lease-view .thingId=${data.id}></lease-view>`
       },
 
       // 租约之房 routes
       '/flats/view': () => {
-        this._page = html`<flathings-index .thingId=${0}></flathings-index>`
+        this._yearShown = true
+        this._mainChild = html`<flathings-index .thingId=${0}></flathings-index>`
       },
       '/flats/view/:id': ({ data }: { data: { id: number } }) => {
-        this._page = html`<flathings-index .thingId=${data.id}></flathings-index>`
+        this._yearShown = false
+        this._mainChild = html`<flathings-index .thingId=${data.id}></flathings-index>`
       },
       '/flats/delete/:id': ({ data }: { data: { id: number } }) => {
-        this._page = html`<flat-deleter .thingId=${data.id}></flat-deleter>`
+        this._yearShown = true
+        this._mainChild = html`<flat-deleter .thingId=${data.id}></flat-deleter>`
       },
       '/flats/edit': () => {
-        this._page = html`<flathing-edit></flathing-edit>`
+        this._yearShown = true
+        this._mainChild = html`<flathing-edit></flathing-edit>`
       },
       '/flats/edit/:id': ({ data }: { data: { id: number } }) => {
-        this._page = html`<flathing-edit .thingId=${data.id}></flathing-edit>`
+        this._yearShown = true
+        this._mainChild = html`<flathing-edit .thingId=${data.id}></flathing-edit>`
       },
 
       // 租房之约 routes
       '/rents/view': () => {
-        this._page = html`<renthings-index></renthings-index>`
+        this._yearShown = true
+        this._mainChild = html`<renthings-index></renthings-index>`
       },
       '/rents/view/:id': ({ data }: { data: { id: number } }) => {
-        this._page = html`<renthings-index .thingId=${data.id}></renthings-index>`
+        this._yearShown = false
+        this._mainChild = html`<renthings-index .thingId=${data.id}></renthings-index>`
       },
       '/rents/delete/:id': ({ data }: { data: { id: number } }) => {
-        this._page = html`<rent-deleter .thingId=${data.id}></rent-deleter>`
+        this._yearShown = true
+        this._mainChild = html`<rent-deleter .thingId=${data.id}></rent-deleter>`
       },
       '/rents/edit': () => {
-        this._page = html`<renthing-edit></renthing-edit>`
+        this._yearShown = true
+        this._mainChild = html`<renthing-edit></renthing-edit>`
       },
       '/rents/edit/:id': ({ data }: { data: { id: number } }) => {
-        this._page = html`<renthing-edit .thingId=${data.id}></renthing-edit>`
+        this._yearShown = true
+        this._mainChild = html`<renthing-edit .thingId=${data.id}></renthing-edit>`
       },
     })
     router.notFound(() => {
-      this._page = html`
+      this._mainChild = html`
         <not-found></not-found>
       `
     })
@@ -69,9 +86,11 @@ export class AppElement extends LitElement {
       <header>
         <header-nav></header-nav>
       </header>
-      <main>${this._page}</main>
+      <main>${this._mainChild}</main>
       <footer>
-        <span>&copy;&nbsp;${new Date().getFullYear()} &nbsp; Renthere</span>
+        ${this._yearShown ? html`
+            <span>&copy;&nbsp;${new Date().getFullYear()} &nbsp; Renthere</span>
+        ` : nothing}
       </footer>
     `
   }

@@ -11,13 +11,17 @@ export default class InputText extends LitElement {
     @property({ type: String }) pattern?: string
 
     protected render(): unknown {
-        const placeholder = `${this.minLength} - ${this.maxLength} 个字符`
+        const placeholder = this.minLength !== this.maxLength
+            ? (this.minLength === 0 ? `最多 ${this.maxLength} 个字符` : `${this.minLength} - ${this.maxLength} 个字符`)
+            : `${this.maxLength} 个字符`
+        const textPattern = this.pattern ?? "^.{0,99}$"
         return html`
             <fieldset>
                 <legend><small>${this.label}</small></legend>
                 <div>
-                    <input type="text" .value=${this.value} .minLength=${this.minLength}
-                        ?required=${this.minLength > 0} .maxLength=${this.maxLength} .placeholder=${placeholder} @input=${this._onInput} />
+                    <input type="text" .value=${this.value} .minLength=${this.minLength} .maxLength=${this.maxLength}
+                        .style=${`min-width: ${Math.max(this.minLength, 5)}rem; max-width: ${Math.max(this.maxLength, 55)}rem;`}
+                        ?required=${this.minLength > 0} .placeholder=${placeholder} @input=${this._onInput} .pattern=${textPattern} />
                 </div>
             </fieldset>
         `
@@ -25,7 +29,7 @@ export default class InputText extends LitElement {
 
     private _onInput(e: InputEvent) {
         const elem = e.currentTarget as HTMLInputElement
-        this.dispatchEvent(new CustomEvent('text-changed', {detail: {d: elem.value.trimStart()}, bubbles: true, composed: false}))
+        this.dispatchEvent(new CustomEvent('text-changed', { detail: { d: elem.value.trimStart() }, bubbles: true, composed: false }))
     }
 
     static styles = [
@@ -34,9 +38,6 @@ export default class InputText extends LitElement {
         css`
             div {
                 display: grid;
-            }
-            input[type="text"] {
-                min-width: max-content;
             }
         `
     ]

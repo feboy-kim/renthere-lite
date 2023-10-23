@@ -5,7 +5,9 @@ import "../widgets/check-group"
 import "../widgets/radio-group"
 import "../widgets/input-text"
 import { MAX_TEXT_LENGTH, MIN_TEXT_LENGTH, applianceDict, facilityDict, sundryFeeDict } from "../../models/there-m";
-import { bottomRight } from "../styles/edit-styles";
+import { bottomFixed, submitStyles } from "../styles/edit-styles";
+
+const canceline = "取消 ✘"
 
 @customElement('flathing-form')
 export default class FlathingForm extends LitElement {
@@ -32,11 +34,9 @@ export default class FlathingForm extends LitElement {
         this._sundryFees = this.thing.sundryFees
     }
 
-    private readonly _canceline = "取消 ✘"
-
     _handleSubmit(e: SubmitEvent) {
         e.preventDefault()
-        if ((e.submitter as HTMLInputElement).value === this._canceline) {
+        if ((e.submitter as HTMLInputElement).value === canceline) {
             this.dispatchEvent(new CustomEvent('submitted', { detail: {}, bubbles: true, composed: true }))
         } else {
             if (this._address && this._descrip) {
@@ -78,7 +78,7 @@ export default class FlathingForm extends LitElement {
                     @toggle-check=${(e: CustomEvent) => this._sundryFees = e.detail.n}></check-group>
             </div>
             <div class="bottom-right">    
-                <input type="submit" value=${this._canceline} formnovalidate />
+                <input type="submit" value=${canceline} formnovalidate />
                 <input type="submit" value="保存 ✔" />
             </div>
         </form>`
@@ -86,7 +86,8 @@ export default class FlathingForm extends LitElement {
 
 
     static styles = [
-        bottomRight,
+        bottomFixed,
+        submitStyles,
         css`
             form {
                 margin: 0.2rem 0.5rem;

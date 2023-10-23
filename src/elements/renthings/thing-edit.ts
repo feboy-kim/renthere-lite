@@ -18,14 +18,14 @@ export default class RenthingEdit extends LitElement {
         document.title = "编辑租约 - " + therenv.appName
     }
 
-    private _rentask = new Task(this, {
+    private _task = new Task(this, {
         task: async ([id]) => {
             return id ? await getRenthing(id) ?? new Renthing() : new Renthing()
         }, args: () => [this.thingId]
     })
 
     protected render(): unknown {
-        return this._rentask.render({
+        return this._task.render({
             pending: () => html`<p>Loading ...</p>`,
             complete: (thing) => {
                 this._thing = thing

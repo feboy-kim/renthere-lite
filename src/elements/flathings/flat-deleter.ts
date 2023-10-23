@@ -6,9 +6,11 @@ import { router } from "../../app-helper";
 import { deleteFlathing } from "../../dex/db-writer";
 import Flatuple from "../../models/flatuple";
 import { largeSvg } from "../styles/svg-styles";
-import { bottomRight, flexButton } from "../styles/edit-styles";
+import { bottomFixed, submitStyles } from "../styles/edit-styles";
 import { masterDetail } from "../styles/master-detail";
 import { therenv } from "../../there-env";
+
+const canceline = "取消 ✘"
 
 @customElement('flat-deleter')
 export default class FlatDeleter extends LitElement {
@@ -19,15 +21,26 @@ export default class FlatDeleter extends LitElement {
         document.title = "删除房屋 - " + therenv.appName
     }
 
-    private _flatask = new Task(this, {
+    private _task = new Task(this, {
         task: async ([id]) => await getFlatuple(id),
         args: () => [this.thingId]
     })
 
+    _handleSubmit(e: SubmitEvent) {
+        e.preventDefault()
+        if ((e.submitter as HTMLInputElement).value === canceline) {
+            router.navigate(`/flats/view/${this.thingId}`)
+        } else {
+            deleteFlathing(this.thingId)
+                .then(() => router.navigate(`/flats/view`, { historyAPIMethod: 'replaceState' }))
+                .catch(e => console.error(e))
+        }
+    }
+
     protected render(): unknown {
-        return this._flatask.render({
+        return this._task.render({
             pending: () => html`<p>Loading ...</p>`,
-            complete: (thing?: Flatuple) => thing ? html`
+            complete: (thing?: Flatuple) => thing ? html`<form @submit=${this._handleSubmit}>
                 <div class="master-detail">
                     <div class="master">
                         <h3>删除</h3>
@@ -41,16 +54,10 @@ export default class FlatDeleter extends LitElement {
                     </div>
                 </div>
                 <div class="bottom-right">
-                    <button type="button" @click=${() => router.navigate(`/flats/view/${this.thingId}`)} class="flex-button">
-                        <span>取消 \u2718</span>
-                    </button>
-                    <button type="button" class="flex-button" @click=${() => deleteFlathing(thing.flatId)
-                    .then(() => router.navigate(`/flats/view`, { historyAPIMethod: 'replaceState' })
-                    ).catch(e => console.error(e))}>
-                        <span>确定 \u2714</span>
-                    </button>
+                    <input type="submit" value=${canceline} formnovalidate />
+                    <input type="submit" value="确定 ✔" />
                 </div>
-            `: nothing,
+            </form>`: nothing,
             error: (e) => html`<p>Error: ${e}</p>`
         })
     }
@@ -58,8 +65,8 @@ export default class FlatDeleter extends LitElement {
     static styles = [
         largeSvg,
         masterDetail,
-        bottomRight,
-        flexButton,
+        bottomFixed,
+        submitStyles,
         css`
             div.master {
                 margin: 0.2rem;

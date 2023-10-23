@@ -18,18 +18,18 @@ export async function putRenthing(rent: Renthing): Promise<number> {
     return await db.renthings.put(rent)
 }
 
-export function deleteFlathing(flat: string | number): Promise<number | void> {
-    if (typeof flat === "string") {
-        return db.flathings.where({address: flat}).delete()
+export function deleteFlathing(id: string | number): Promise<void> {
+    if (typeof id === "string") {
+        return db.flathings.delete(Number.parseInt(id))
     } else {
-        return db.flathings.delete(flat)
+        return db.flathings.delete(id)
     }
 }
 
-export function deleteRenthing(rent: { flatId: number, startDate: Date } | number): Promise<number | void> {
-    if (typeof rent === "number") {
-        return db.renthings.delete(rent)
+export function deleteRenthing(id: string | number): Promise<void> {
+    if (typeof id === "string") {
+        return db.renthings.delete(Number.parseInt(id))
     } else {
-        return db.renthings.where({flatId: rent.flatId, startDate: rent.startDate}).delete()
+        return db.renthings.delete(id)
     }
 }

@@ -18,14 +18,14 @@ export default class FlathingEdit extends LitElement {
         document.title = "编辑房屋 - " + therenv.appName
     }
 
-    private _flatask = new Task(this, {
+    private _task = new Task(this, {
         task: async ([id]) => {
             return id ? await getFlathing(id) ?? new Flathing() : new Flathing()
         }, args: () => [this.thingId]
     })
 
     protected render(): unknown {
-        return this._flatask.render({
+        return this._task.render({
             pending: () => html`<p>Loading ...</p>`,
             complete: (thing) => {
                 this._thing = thing
