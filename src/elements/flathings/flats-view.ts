@@ -2,8 +2,7 @@ import { Task } from "@lit/task";
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { getFlatuples } from "../../dex/db-reader";
-import { router } from "../../app-helper";
-import { listStyles } from "../styles/view-styles";
+import { listStyles } from "../styles/list-styles";
 import { linkStyles } from "../styles/link-styles";
 
 @customElement('flathings-view')
@@ -19,11 +18,11 @@ export default class FlathingsView extends LitElement {
         return this._task.render({
             pending: () => html`<p>Loading ...</p>`,
             complete: (tuples) => tuples.length > 0 ? html`<ul>${tuples.map(it => html`
-                <li .className=${this.flatId == it.flatId ? "selected" : ""} @click=${() => router.navigate(`/flats/view/${it.flatId}`)}>
-                    <span>${it.address}</span>
+                <li .className=${this.flatId == it.flatId ? "selected" : ""}>
+                    <a href=${`#/flats/view/${it.flatId}`} data-navigo><span>${it.address}</span></a>
                 </li>`
             )}</ul>` : html`<p>
-                <a href="/flats/edit" data-navigo>添加房屋记录 ...</a>
+                <a href="#/flats/edit" data-navigo>添加房屋记录 ...</a>
             </p>`,
             error: (e) => html`<p>Error: ${e}</p>`
         })

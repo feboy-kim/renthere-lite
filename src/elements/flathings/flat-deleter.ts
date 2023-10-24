@@ -29,7 +29,7 @@ export default class FlatDeleter extends LitElement {
     _handleSubmit(e: SubmitEvent) {
         e.preventDefault()
         if ((e.submitter as HTMLInputElement).value === canceline) {
-            router.navigate(`/flats/view/${this.thingId}`)
+            router.navigate(`/flats/view/${this.thingId}`, { historyAPIMethod: 'replaceState' })
         } else {
             deleteFlathing(this.thingId)
                 .then(() => router.navigate(`/flats/view`, { historyAPIMethod: 'replaceState' }))

@@ -3,7 +3,7 @@ import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { getFlatuples } from "../../dex/db-reader";
 import "../widgets/my-popover"
-import { listStyles } from "../styles/view-styles";
+import { listStyles } from "../styles/list-styles";
 import { linkStyles } from "../styles/link-styles";
 
 @customElement('flat-select')
@@ -33,7 +33,7 @@ export default class FlatSelect extends LitElement {
                         </my-popover>
                         ${selected ? html`` : html`<span class="no-selected">\u2753</span>`}</section>`
                         : html`<div>
-                            <a href="/flats/edit" data-navigo>添加房屋记录 ...</a>
+                            <a href="#/flats/edit" data-navigo>添加房屋记录 ...</a>
                         </div>`}
                 </fieldset>`},
             error: (e) => html`<p>Error: ${e}</p>`

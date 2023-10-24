@@ -41,8 +41,8 @@ export default class FlathingForm extends LitElement {
         } else {
             if (this._address && this._descrip) {
                 const d = Flathing.newEntity(
-                    this._address,
-                    this._descrip,
+                    this._address.trim(),
+                    this._descrip.trim(),
                     this._layout,
                     this._storey,
                     this._orient,

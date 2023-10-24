@@ -27,17 +27,3 @@ export const listStyles = css`
     }
 
 `
-
-export const sectionView = css`
-    section {
-        display: flex;
-        align-items: center;
-    }
-    section strong {
-        font-size: large;
-    }
-    section small {
-        opacity: 0.7;
-    }
-
-`

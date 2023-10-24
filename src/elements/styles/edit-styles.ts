@@ -35,6 +35,7 @@ export const submitStyles = css`
         font-size: inherit;
         padding: 0.2rem 0.6rem;
         color: skyblue;
+        background-color: midnightblue;
     }
     input[type='submit']:hover {
         color: thistle;
@@ -43,6 +44,7 @@ export const submitStyles = css`
     @media (prefers-color-scheme: light) {
         input[type='submit'] {
             color: saddlebrown;
+            background-color: beige;
         }
         input[type='submit']:hover {
             color: slateblue;

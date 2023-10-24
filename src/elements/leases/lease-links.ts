@@ -1,7 +1,18 @@
-import { LitElement, html } from "lit"
+import { LitElement, css, html } from "lit"
 import { customElement, property } from "lit/decorators.js"
 import { smallSvg } from "../styles/svg-styles"
 import { linkStyles } from "../styles/link-styles"
+
+const anchorStyles = css`
+    a {
+        background-color: midnightblue;
+    }
+    @media (prefers-color-scheme: light) {
+        a {
+            background-color: beige;
+        }
+    }
+`
 
 @customElement('detail-link')
 export class DetailLink extends LitElement {
@@ -22,6 +33,7 @@ export class DetailLink extends LitElement {
     static styles = [
         smallSvg,
         linkStyles,
+        anchorStyles
     ]
 
 }
@@ -32,7 +44,7 @@ export class PdfileLink extends LitElement {
 
     protected render(): unknown {
         return html`
-            <a href=${this.href} class="rounded-flex">
+            <a href=${this.href} class="rounded-flex" data-navigo="false">
                 <span>PDF</span>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="small-svg">
                     <path stroke-linecap="round" stroke-linejoin="round" 
@@ -45,6 +57,7 @@ export class PdfileLink extends LitElement {
     static styles = [
         smallSvg,
         linkStyles,
+        anchorStyles
     ]
 
 }

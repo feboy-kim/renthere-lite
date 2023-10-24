@@ -33,14 +33,14 @@ export default class RenthingsIndex extends LitElement {
                     </div>`}
             </div>
             <div class="bottom-left">
-                ${this.thingId ? html`<create-link href="/rents/edit"></create-link>` : nothing}
+                ${this.thingId ? html`<create-link href="#/rents/edit"></create-link>` : nothing}
             </div>
             <div class="bottom-right">
                 ${this.thingId ? html`
-                    <update-link href=${`/rents/edit/${this.thingId}`}></update-link>
-                    <delete-link href=${`/rents/delete/${this.thingId}`}></delete-link>
-                    <detail-link href=${`/lease/${this.thingId}`}></detail-link>
-                ` : html`<create-link href="/rents/edit"></create-link>`}
+                    <update-link href=${`#/rents/edit/${this.thingId}`}></update-link>
+                    <delete-link href=${`#/rents/delete/${this.thingId}`}></delete-link>
+                    <detail-link href=${`#/lease/${this.thingId}`}></detail-link>
+                ` : html`<create-link href="#/rents/edit"></create-link>`}
             </div>
         `
     }

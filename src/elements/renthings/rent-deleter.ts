@@ -29,7 +29,7 @@ export default class RentDeleter extends LitElement {
     _handleSubmit(e: SubmitEvent) {
         e.preventDefault()
         if ((e.submitter as HTMLInputElement).value === canceline) {
-            router.navigate(`/rents/view/${this.thingId}`)
+            router.navigate(`/rents/view/${this.thingId}`, { historyAPIMethod: 'replaceState' })
         } else {
             deleteRenthing(this.thingId)
                 .then(() => router.navigate(`/rents/view`, { historyAPIMethod: 'replaceState' }))
@@ -45,7 +45,8 @@ export default class RentDeleter extends LitElement {
                 <div class="master-detail">
                     <div class="master">
                         <h3>删除</h3>
-                        <p>确定要删除《${thing.lessor + " -:- " + thing.lessee}》的租约数据吗？</p>
+                        <p>确定要删除《${thing.lessor + " -:- " + thing.lessee}, &nbsp;
+                        ${Intl.DateTimeFormat("zh-CN", { dateStyle: "long" }).format(thing.startDate)}》的租约数据吗？</p>
                     </div>
                     <div class="detail-svg">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  weight="24" height="24" class="large-svg">

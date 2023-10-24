@@ -29,16 +29,16 @@ export default class HomePage extends LitElement {
             <div class="master-detail">
                 <div class="master">
                     ${countwin.flatCount > 0
-                    ? html`<p>已有房屋数据: <a href="/flats/view" title="租约之房" data-navigo>
+                    ? html`<p>已有房屋数据: <a href="#/flats/view" title="租约之房" data-navigo>
                             <span>${countwin.flatCount}</span>
                         </a></p>`
-                    : html`<p>没有房屋数据: <a href="/flats/edit" title="租约之房" data-navigo>\u271A</a></p>`
+                    : html`<p>没有房屋数据: <a href="#/flats/edit" title="租约之房" data-navigo>\u271A</a></p>`
                 }
                     ${countwin.rentCount > 0
-                    ? html`<p>已有租约数据: <a href="/rents/view" title="租房之约" data-navigo>
+                    ? html`<p>已有租约数据: <a href="#/rents/view" title="租房之约" data-navigo>
                             <span>${countwin.rentCount}</span>
                         </a></p>`
-                    : html`<p>没有租约数据: <a href="/rents/edit" title="租房之约" data-navigo>\u271A</a></p>`
+                    : html`<p>没有租约数据: <a href="#/rents/edit" title="租房之约" data-navigo>\u271A</a></p>`
                 }
                 </div>
                 <div class="detail-svg">

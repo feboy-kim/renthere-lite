@@ -1,7 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Sumoney } from "../../models/sumoney";
-import { sectionView } from "../styles/view-styles";
 
 @customElement('money-view')
 export default class MoneyView extends LitElement {
@@ -18,8 +17,17 @@ export default class MoneyView extends LitElement {
     }
 
     static styles = [
-        sectionView,
         css`
+            section {
+                display: flex;
+                align-items: center;
+            }
+            section strong {
+                font-size: large;
+            }
+            section small {
+                opacity: 0.7;
+            }
             
         `
     ]

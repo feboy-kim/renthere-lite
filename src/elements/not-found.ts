@@ -2,9 +2,15 @@ import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { largeSvg } from "./styles/svg-styles";
 import { masterDetail } from "./styles/master-detail";
+import { therenv } from "../there-env";
 
 @customElement('not-found')
 export default class NotFound extends LitElement {
+    constructor() {
+        super()
+        document.title = "迷路了 - " + therenv.appName
+    }
+
     protected render(): unknown {
         return html`<div class="master-detail">
             <p class="master">路径错误，迷路了！</p>

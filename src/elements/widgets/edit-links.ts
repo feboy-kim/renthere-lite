@@ -3,6 +3,17 @@ import { customElement, property } from "lit/decorators.js";
 import { linkStyles } from "../styles/link-styles";
 import { smallSvg } from "../styles/svg-styles";
 
+const anchorStyles = css`
+    a {
+        background-color: midnightblue;
+    }
+    @media (prefers-color-scheme: light) {
+        a {
+            background-color: beige;
+        }
+    }
+`
+
 @customElement('create-link')
 export class CreateLink extends LitElement {
     @property({type: String}) href!: string
@@ -21,7 +32,7 @@ export class CreateLink extends LitElement {
     static styles = [
         smallSvg,
         linkStyles,
-        css``
+        anchorStyles
     ]
 
 }
@@ -44,7 +55,7 @@ export class UpdateLink extends LitElement {
     static styles = [
         smallSvg,
         linkStyles,
-        css``
+        anchorStyles
     ]
 
 }
@@ -67,7 +78,7 @@ export class DeleteLink extends LitElement {
     static styles = [
         smallSvg,
         linkStyles,
-        css``
+        anchorStyles
     ]
 
 }

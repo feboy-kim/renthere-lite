@@ -32,13 +32,13 @@ export default class FlathingsIndex extends LitElement {
                     </div>`}
             </div>
             <div class="bottom-left">
-                ${this.thingId ? html`<create-link href="/flats/edit"></create-link>` : nothing}
+                ${this.thingId ? html`<create-link href="#/flats/edit"></create-link>` : nothing}
             </div>
             <div class="bottom-right">
                 ${this.thingId ? html`
-                    <update-link href=${`/flats/edit/${this.thingId}`}></update-link>
-                    <delete-link href=${`/flats/delete/${this.thingId}`}></delete-link>
-                ` : html`<create-link href="/flats/edit"></create-link>`}
+                    <update-link href=${`#/flats/edit/${this.thingId}`}></update-link>
+                    <delete-link href=${`#/flats/delete/${this.thingId}`}></delete-link>
+                ` : html`<create-link href="#/flats/edit"></create-link>`}
             </div>
         `
     }
