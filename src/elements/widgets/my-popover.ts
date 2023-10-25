@@ -57,7 +57,7 @@ export default class MyPopover extends LitElement {
             <div>
                 <button @click=${() => { this._show() }}>
                    ${this.current}${this._popped
-                    ? html`<div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="small-svg">
+                    ? html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="small-svg">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
                     </svg>`
                     : html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="small-svg">
@@ -78,7 +78,7 @@ export default class MyPopover extends LitElement {
                 display: flex;
                 flex-flow: row nowrap;
                 align-items: center;
-                gap: 0.5rem;
+                gap: 4px;
                 padding: 0.2rem 0.5rem;
             }
             article {
@@ -88,7 +88,7 @@ export default class MyPopover extends LitElement {
                 left: 0;
             }
             article > section {
-                margin: 0.2rem 0.6rem;
+                margin: 0.2rem 0.5rem;
                 color: darkslategray;
                 background-color: lightgray;
                 border-radius: 4px;

@@ -17,11 +17,11 @@ export default class RenthingsView extends LitElement {
     protected render(): unknown {
         return this._task.render({
             pending: () => html`<p>Loading ...</p>`,
-            complete: (tuples) => tuples.length > 0 ?  html`<ul>${tuples.map(it => html`
+            complete: (tuples) => tuples.length > 0 ? html`<ul>${tuples.map(it => html`
                 <li .className=${this.rentId == it.rentId ? "selected" : ""}>
                     <a href=${`#/rents/view/${it.rentId}`} data-navigo>           
-                        <span>${it.lessor + " -:- " + it.lessee}, &nbsp;</span>
-                        <span>${Intl.DateTimeFormat("zh-CN", { dateStyle: "long" }).format(it.startDate)}</span>
+                        ${it.lessor + " -:- " + it.lessee}, &nbsp;
+                        ${Intl.DateTimeFormat("zh-CN", { dateStyle: "long" }).format(it.startDate)}
                     </a>
                 </li>`
             )}</ul>` : html`<p>
@@ -36,10 +36,10 @@ export default class RenthingsView extends LitElement {
         linkStyles,
         css`
             li a {
-               display: flex;
-               flex-flow: row wrap;
-               align-items: center;
-               gap: -.2rem; 
+                margin: 0.2rem;
+            }
+            p {
+                text-align: center;
             }
         `
     ]

@@ -3,14 +3,14 @@ import { css } from "lit";
 export const linkStyles = css`
     a {
         font-weight: 500;
-        padding: 0.3rem 0.5rem;
+        padding: 0.2rem 0.5rem;
         color: skyblue;
         text-decoration: inherit;
     }
     a:hover {
         color: thistle;
         text-decoration: underline;
-        text-underline-offset: 0.4rem;
+        text-underline-offset: 6px;
     }
 
     a.rounded-flex {

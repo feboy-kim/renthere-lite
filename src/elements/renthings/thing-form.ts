@@ -93,16 +93,19 @@ export default class RenthingForm extends LitElement {
                 <money-edit label="押金（元）" .value=${this._foregift}
                     @money-changed=${(e: CustomEvent) => this._foregift = e.detail}></money-edit>
             </div>
-            <div class="md-flex">
-                <div style="display: flex;">
+            <div class="lg-2-cols">
+                <div class="sm-2-cols">
                     <start-date label="起始日期" .value=${this._startDate} 
                         @date-selected=${(e: CustomEvent) => this._startDate = e.detail.d}></start-date>
-                    <input-number label="租期（月）" .value=${this._leaseTerm} 
-                        @number-changed=${(e: CustomEvent) => this._leaseTerm = e.detail.d}></input-number>
-                    <input-number label="付款（月）" .value=${this._payCycle} .max=${this._leaseTerm} title="付款周期"
-                        @number-changed=${(e: CustomEvent) => this._payCycle = e.detail.d}></input-number>
+                    <div style="display: flex;">
+                        <input-number label="租期（月）" .value=${this._leaseTerm} 
+                            @number-changed=${(e: CustomEvent) => this._leaseTerm = e.detail.d}></input-number>
+                        <input-number label="付款周期（月）" .value=${this._payCycle} 
+                            .max=${this._leaseTerm} title="付款周期"
+                            @number-changed=${(e: CustomEvent) => this._payCycle = e.detail.d}></input-number>
+                    </div>
                 </div>
-                <input-text label="附加条款" style="flex: 1;" .value=${this._supplement} .maxLength=${MAX_TEXT_LENGTH}
+                <input-text label="附加条款" .value=${this._supplement} .maxLength=${MAX_TEXT_LENGTH}
                     @text-changed=${(e: CustomEvent) => this._supplement = e.detail.d}></input-text>
             </div>
             <div class="bottom-right">    
@@ -134,9 +137,6 @@ export default class RenthingForm extends LitElement {
             @media(min-width: 768px) {
                 div.md-2-cols {
                     grid-template-columns: repeat(2, 1fr);
-                }
-                div.md-flex {
-                    display: flex;
                 }
             }
             @media(min-width: 1024px) {

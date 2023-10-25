@@ -13,32 +13,30 @@ export const bottomFixed = css`
     }
 
 `
-export const smallStyles = css`
-    small {
-        opacity: 0.75;
-        margin: 0.1rem;
-    }
-`
-
 export const inputStyles = css`
     input {
-        padding: 0.4rem 0.6rem;
+        padding: 0.2rem 0.5rem;
         font-size: inherit;
     }
     input:invalid {
-        border-color: crimson tomato;
+        border-color: tomato;
     }
 
 `
 export const submitStyles = css`
     input[type='submit'] {
         font-size: inherit;
-        padding: 0.2rem 0.6rem;
+        padding: 0.2rem 0.5rem;
+        border: 1px solid;
+        border-radius: 4px;
         color: skyblue;
         background-color: midnightblue;
+        text-decoration: inherit;
     }
     input[type='submit']:hover {
         color: thistle;
+        text-decoration: underline;
+        text-underline-offset: 6px;
     }
 
     @media (prefers-color-scheme: light) {

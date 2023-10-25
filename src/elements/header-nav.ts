@@ -10,7 +10,7 @@ export default class HeaderNav extends LitElement {
   protected render(): unknown {
     return html`<nav>
         <div class="top-left">  
-          <a href="/" data-navigo class="logo">
+          <a href="/" data-navigo>
             <svg xmlns="http://www.w3.org/2000/svg" role="img" width="48" height="48" viewBox="-12 -12 24 24" fill="none" stroke="violet">
               <defs><clipPath id="cp">
                 <rect x="-10" y="-10" width="20" height="20" transform="rotate(45)" />
@@ -19,9 +19,9 @@ export default class HeaderNav extends LitElement {
                 clip-path="url(#cp)" transform="translate(0,-2)" />
             </svg>
           </a>
-          <h3 style="opacity: 0.5;">${this.heading}</h3>
+          <h3 style="opacity: 0.75;">${this.heading}</h3>
         </div>
-        <div>
+        <div class="top-right">
           <a href="#/flats/view" title="租约之房" style="display: inline-flex;" data-navigo>
             <span>房屋</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" weight="24" height="24" class="small-svg">
@@ -49,19 +49,13 @@ export default class HeaderNav extends LitElement {
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        gap: 4px;
       }
-      div.top-left {
+      div.top-left, div.top-right {
         display: flex;
         flex-flow: row nowrap;
-        gap: 4px;
         align-items: center;
-      }
-      nav > div {
-        margin-right: 0.5rem;
-      }
-      a.logo {
-        padding: 0.2rem 0.6rem;
-        margin: 0.2rem;
+        padding: 0.2rem 0.5rem;
       }
     `
   ]

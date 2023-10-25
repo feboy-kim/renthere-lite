@@ -3,8 +3,8 @@ import { css } from "lit";
 export const masterDetail = css`
     .master-detail {
         display: flex;
-        column-gap: 0.4rem;
-        margin: 0.8rem;
+        column-gap: 0.2rem;
+        margin: 0.5rem;
     }
     .drawer {
         display: none;

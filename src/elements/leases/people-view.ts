@@ -23,7 +23,7 @@ export default class PeopleView extends LitElement {
                     <span>乙方（承租人）: &nbsp;</span>
                     <div>
                         <div class="one-line">
-                            <strong>${this.lessee.realName}&nbsp;</strong>
+                            <strong>${this.lessee.realName}, &nbsp;</strong>
                             <div>手机: &nbsp; ${this.lessee.phoneNum}</div>
                         </div>
                         <div>身份证: &nbsp; ${this.lessee.personId}</div>

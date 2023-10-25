@@ -1,6 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { inputStyles, smallStyles } from "../styles/edit-styles";
+import { inputStyles } from "../styles/edit-styles";
 
 @customElement('input-number')
 export default class InputNumber extends LitElement {
@@ -15,9 +15,10 @@ export default class InputNumber extends LitElement {
         return html`
             <fieldset>
                 <legend><small>${this.label}</small></legend>
-                <input type="number" .value=${this.value.toString()} .min=${this.min.toString()} .max=${maxVal.toString()} 
-                    .size=${this.size + 1} @input=${this._onInput} required />
-                <span class="validity"></span>
+                <div>
+                    <input type="number" .value=${this.value.toString()} .min=${this.min.toString()} .max=${maxVal.toString()} 
+                        .size=${this.size + 1} @input=${this._onInput} required />
+                </div>
             </fieldset>
         `
     }
@@ -29,9 +30,14 @@ export default class InputNumber extends LitElement {
     }
 
     static styles = [
-        smallStyles,
         inputStyles,
         css`
+            legend small {
+                opacity: 0.75;
+            }
+            div {
+                display: grid;
+            }
         
         `
     ]

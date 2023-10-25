@@ -5,6 +5,7 @@ import { getFlatuples } from "../../dex/db-reader";
 import "../widgets/my-popover"
 import { listStyles } from "../styles/list-styles";
 import { linkStyles } from "../styles/link-styles";
+import { router } from "../../app-helper";
 
 @customElement('flat-select')
 export default class FlatSelect extends LitElement {
@@ -17,6 +18,7 @@ export default class FlatSelect extends LitElement {
     })
 
     protected render(): unknown {
+        const hashold = router.getCurrentLocation().hashString
         return this._task.render({
             pending: () => html`<p>Loading ...</p>`,
             complete: (flats) => {
@@ -24,16 +26,15 @@ export default class FlatSelect extends LitElement {
                 return html`<fieldset>
                     <legend><small>${this.label}</small></legend>
                     ${flats.length > 0
-                        ? html`<section><my-popover .current=${selected?.address ?? "选择租约之房 ..."}>
+                        ? html`<div class="flat-list"><my-popover .current=${selected?.address ?? "选择租约之房 ..."}>
                             <ul>${flats.map(it => html`
                                 <li @click=${() => this._onSelected(it.flatId)}>
                                     <span>${it.address}</span>
                                 </li>
                             `)}</ul>
-                        </my-popover>
-                        ${selected ? html`` : html`<span class="no-selected">\u2753</span>`}</section>`
+                        </my-popover>${selected?.address ? html`` : html`<span>\u2753</span>`}</div>`
                         : html`<div>
-                            <a href="#/flats/edit" data-navigo>添加房屋记录 ...</a>
+                            <a href=${`#/flats/edit?from=${hashold}`} data-navigo>添加房屋记录 ...</a>
                         </div>`}
                 </fieldset>`},
             error: (e) => html`<p>Error: ${e}</p>`
@@ -48,19 +49,18 @@ export default class FlatSelect extends LitElement {
         listStyles,
         linkStyles,
         css`
-            section {
+            div.flat-list {
                 display: flex;
-                flex-flow: row nowrap;
-                align-items: center;
+                gap: 4px;
             }
             ul {
                 padding-top: 0.5rem;
                 padding-bottom: 0.5rem;
             }
             li {
-                padding-right: 1.5rem
+                padding-right: 1.5rem;
             }
-            span.no-selected {
+            span {
                 padding: 0.2rem;
             }
         `

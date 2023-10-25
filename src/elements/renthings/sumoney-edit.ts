@@ -1,9 +1,9 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { MAX_SINO_LENGTH, MIN_SINO_LENGTH, Sumoney, sinoPattern } from "../../models/sumoney";
-import { inputStyles, smallStyles } from "../styles/edit-styles";
+import { inputStyles } from "../styles/edit-styles";
 
-const placeholder = `${MIN_SINO_LENGTH} - ${MAX_SINO_LENGTH} 个汉字`
+const placeholder = `${MIN_SINO_LENGTH} - ${MAX_SINO_LENGTH} 个汉字（无空格）`
 
 @customElement('money-edit')
 export default class MoneyEdit extends LitElement {
@@ -38,9 +38,11 @@ export default class MoneyEdit extends LitElement {
     }
 
     static styles = [
-        smallStyles,
         inputStyles,
         css`
+            legend small {
+                opacity: 0.75;
+            }
             div.flex-group {
                 display: flex;
                 flex-flow: row nowrap;

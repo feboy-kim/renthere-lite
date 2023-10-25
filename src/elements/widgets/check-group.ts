@@ -1,7 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
-import { smallStyles } from "../styles/edit-styles";
 
 @customElement('check-group')
 export class CheckGroup extends LitElement {
@@ -32,12 +31,14 @@ export class CheckGroup extends LitElement {
     }
 
     static styles = [
-        smallStyles,
         css`
+            legend small {
+                opacity: 0.75;
+            }
             div {
                 display: flex;
                 flex-flow: row wrap;
-                gap: 0.2rem;
+                gap: 4px;
             }
             label {
                 display: flex;

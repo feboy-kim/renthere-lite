@@ -78,8 +78,7 @@ export default class Flathing {
     }
 
     get isValid(): boolean {
-        return this.address.length >= MIN_TEXT_LENGTH && this.address.length <= MAX_TEXT_LENGTH
-            && this.descrip.length >= MIN_TEXT_LENGTH && this.descrip.length <= MAX_TEXT_LENGTH
+        return this.address.length >= MIN_TEXT_LENGTH && this.address.length <= MAX_TEXT_LENGTH && this.descrip.length <= MAX_TEXT_LENGTH
     }
 
     equals(d: Flathing): boolean {

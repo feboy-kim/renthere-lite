@@ -30,7 +30,7 @@ export default class PersonView extends LitElement {
                 font-size: large;
             }
             section small {
-                opacity: 0.7;
+                opacity: 0.75;
             }
             div.one-line {
                 display: flex;

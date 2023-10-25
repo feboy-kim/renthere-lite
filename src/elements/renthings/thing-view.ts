@@ -52,10 +52,10 @@ export default class RenthingView extends LitElement {
         linkStyles,
         css`
             section {
-                margin: 0.8rem;
+                margin: 0.5rem;
             }
             section small {
-                opacity: 0.7;
+                opacity: 0.75;
             }
         `
     ]

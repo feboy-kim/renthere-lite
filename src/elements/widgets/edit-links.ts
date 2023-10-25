@@ -3,7 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import { linkStyles } from "../styles/link-styles";
 import { smallSvg } from "../styles/svg-styles";
 
-const anchorStyles = css`
+const anchStyles = css`
     a {
         background-color: midnightblue;
     }
@@ -32,7 +32,7 @@ export class CreateLink extends LitElement {
     static styles = [
         smallSvg,
         linkStyles,
-        anchorStyles
+        anchStyles
     ]
 
 }
@@ -55,7 +55,7 @@ export class UpdateLink extends LitElement {
     static styles = [
         smallSvg,
         linkStyles,
-        anchorStyles
+        anchStyles
     ]
 
 }
@@ -78,7 +78,7 @@ export class DeleteLink extends LitElement {
     static styles = [
         smallSvg,
         linkStyles,
-        anchorStyles
+        anchStyles
     ]
 
 }

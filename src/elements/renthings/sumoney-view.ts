@@ -26,7 +26,7 @@ export default class MoneyView extends LitElement {
                 font-size: large;
             }
             section small {
-                opacity: 0.7;
+                opacity: 0.75;
             }
             
         `

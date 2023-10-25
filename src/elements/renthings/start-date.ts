@@ -1,6 +1,5 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { smallStyles } from "../styles/edit-styles";
 
 const dm = 24 * 36e5    // milliseconds per day
 
@@ -21,6 +20,12 @@ export default class StartDate extends LitElement {
     @property({ type: String }) label!: string
     @property({ type: Object }) value!: Date
 
+    private _itemSpan(d: Date) {
+        return html`<span .className=${d.getDate() === this.value.getDate() ? "selected" : ""} @click=${() => this._onSelect(d)}>
+            ${d.getDate()}
+        </span>`
+    }
+
     protected render(): unknown {
         const current = Intl.DateTimeFormat("zh-CN", { dateStyle: "long" }).format(this.value)
         const sundays = getSundays(this.value)
@@ -36,12 +41,7 @@ export default class StartDate extends LitElement {
                             ${Intl.DateTimeFormat("zh-CN", { year: 'numeric', month: '2-digit' }).format(this.value)}
                         </p>
                         ${sundays.map(d => html`<p class="week-days">
-                            ${weekTags.map((_, i) => {
-            const day = new Date(d.valueOf() + i * dm)
-            return html`<span .className=${day.getDate() === this.value.getDate() ? "selected" : "unselected"}
-                                    @click=${() => this._onSelect(day)}>
-                                    ${day.getDate()}
-                                </span>`})}
+                            ${weekTags.map((_, i) => this._itemSpan(new Date(d.valueOf() + i * dm)))}
                         </p>`)}
                     </div>
                 </my-popover>
@@ -54,8 +54,10 @@ export default class StartDate extends LitElement {
     }
 
     static styles = [
-        smallStyles,
         css`
+            legend small {
+                opacity: 0.75;
+            }
             p.week-days, p.month {
                 margin: 0.2rem;
                 padding: 0.2rem 0.5rem;
@@ -72,7 +74,7 @@ export default class StartDate extends LitElement {
             span.selected {
                 border: 2px solid cornflowerblue;
             }
-            span.unselected:hover {
+            span:hover {
                 background-color: cornflowerblue;
             }
         `

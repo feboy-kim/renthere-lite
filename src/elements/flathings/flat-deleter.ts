@@ -70,7 +70,8 @@ export default class FlatDeleter extends LitElement {
         css`
             div.master {
                 margin: 0.2rem;
-                padding: 0.2rem 0.4rem;
+                padding: 0.2rem 0.5rem;
+                text-align: center;
             }
             div.detail-svg {
                 display: flex;

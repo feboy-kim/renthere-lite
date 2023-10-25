@@ -12,7 +12,7 @@ const canceline = "取消 ✘"
 @customElement('flathing-form')
 export default class FlathingForm extends LitElement {
     @property({ type: Object }) thing!: Flathing
-    
+
     @state() private _address: string = ""
     @state() private _descrip: string = ""
     @state() private _layout: number = 0
@@ -39,19 +39,17 @@ export default class FlathingForm extends LitElement {
         if ((e.submitter as HTMLInputElement).value === canceline) {
             this.dispatchEvent(new CustomEvent('submitted', { detail: {}, bubbles: true, composed: true }))
         } else {
-            if (this._address && this._descrip) {
-                const d = Flathing.newEntity(
-                    this._address.trim(),
-                    this._descrip.trim(),
-                    this._layout,
-                    this._storey,
-                    this._orient,
-                    this._facilities,
-                    this._appliances,
-                    this._sundryFees,
-                    this.thing.id)
-                this.dispatchEvent(new CustomEvent('submitted', { detail: { d }, bubbles: true, composed: true }))
-            }
+            const d = Flathing.newEntity(
+                this._address.trim(),
+                this._descrip.trim(),
+                this._layout,
+                this._storey,
+                this._orient,
+                this._facilities,
+                this._appliances,
+                this._sundryFees,
+                this.thing.id)
+            this.dispatchEvent(new CustomEvent('submitted', { detail: { d }, bubbles: true, composed: true }))
         }
     }
 
@@ -60,7 +58,7 @@ export default class FlathingForm extends LitElement {
             <div class="md-2-cols">
                 <input-text label="地址" .value=${this._address} .minLength=${MIN_TEXT_LENGTH} .maxLength=${MAX_TEXT_LENGTH}
                     @text-changed=${(e: CustomEvent) => this._address = e.detail.d}></input-text>
-                <input-text label="说明" .value=${this._descrip} .minLength=${MIN_TEXT_LENGTH} .maxLength=${MAX_TEXT_LENGTH}
+                <input-text label="说明" .value=${this._descrip} .maxLength=${MAX_TEXT_LENGTH}
                     @text-changed=${(e: CustomEvent) => this._descrip = e.detail.d}></input-text>
             </div>
             <div class="lg-3-cols">

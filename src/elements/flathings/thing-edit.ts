@@ -1,4 +1,4 @@
-import { LitElement, css, html } from "lit"
+import { LitElement, html } from "lit"
 import { customElement, property } from "lit/decorators.js"
 import "./thing-form"
 import Flathing from "../../models/flathing"
@@ -53,7 +53,12 @@ export default class FlathingEdit extends LitElement {
                     }
                 } else {
                     addFlathing(datum).then(d => {
-                        router.navigate(`/flats/view/${d}`, { historyAPIMethod: 'replaceState' })
+                        const searchold = router.getCurrentLocation().queryString
+                        if (searchold && searchold.length > 5) {
+                            router.navigate(`${searchold.substring(5)}`, { historyAPIMethod: 'replaceState' })
+                        } else {
+                            router.navigate(`/flats/view/${d}`, { historyAPIMethod: 'replaceState' })
+                        }
                     }).catch(e => console.error(e))
                 }
             }
@@ -62,10 +67,5 @@ export default class FlathingEdit extends LitElement {
             else router.navigate(`/flats/view`, { historyAPIMethod: 'replaceState' })
         }
     }
-
-    static styles = [
-        css`
-        `
-    ]
 
 }

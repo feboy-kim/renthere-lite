@@ -28,18 +28,14 @@ export default class HomePage extends LitElement {
             complete: (countwin) => html`
             <div class="master-detail">
                 <div class="master">
-                    ${countwin.flatCount > 0
-                    ? html`<p>已有房屋数据: <a href="#/flats/view" title="租约之房" data-navigo>
+                    ${countwin.flatCount > 0 ? html`<p>已有房屋数据: <a href="#/flats/view" title="租约之房" data-navigo>
                             <span>${countwin.flatCount}</span>
                         </a></p>`
-                    : html`<p>没有房屋数据: <a href="#/flats/edit" title="租约之房" data-navigo>\u271A</a></p>`
-                }
-                    ${countwin.rentCount > 0
-                    ? html`<p>已有租约数据: <a href="#/rents/view" title="租房之约" data-navigo>
+                    : html`<p>没有房屋数据: <a href="#/flats/edit" title="租约之房" data-navigo>\u271A</a></p>`}
+                    ${countwin.rentCount > 0 ? html`<p>已有租约数据: <a href="#/rents/view" title="租房之约" data-navigo>
                             <span>${countwin.rentCount}</span>
                         </a></p>`
-                    : html`<p>没有租约数据: <a href="#/rents/edit" title="租房之约" data-navigo>\u271A</a></p>`
-                }
+                    : html`<p>没有租约数据: <a href="#/rents/edit" title="租房之约" data-navigo>\u271A</a></p>`}
                 </div>
                 <div class="detail-svg">
                     <svg xmlns="http://www.w3.org/2000/svg" role="img" width="24" height="24" viewBox="-12 -12 24 24">
@@ -66,7 +62,8 @@ export default class HomePage extends LitElement {
             }
             p {
                 margin: 0.2rem;
-                padding: 0.2rem 0.4rem;
+                padding: 0.2rem 0.5rem;
+                text-align: center;
             }
             a > span {
                 font-weight: 700;

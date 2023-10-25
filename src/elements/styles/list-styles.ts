@@ -2,12 +2,12 @@ import { css } from "lit";
 
 export const listStyles = css`
     ul {
-        list-style: decimal;
+        list-style: none;
     }
 
     li {
         cursor: pointer;
-        padding: 0.4rem 0.6rem;
+        padding: 0.2rem 0.5rem;
         margin: 0.2rem;
         text-align: center;
     }

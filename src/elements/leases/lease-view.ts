@@ -10,6 +10,7 @@ import { listStyles } from "../styles/list-styles";
 import { linkStyles } from "../styles/link-styles";
 import { bottomFixed } from "../styles/edit-styles";
 import { therenv } from "../../there-env";
+import { router } from "../../app-helper";
 
 @customElement('lease-view')
 export default class LeaseView extends LitElement {
@@ -32,6 +33,7 @@ export default class LeaseView extends LitElement {
     })
 
     protected render(): unknown {
+        const hashold = router.getCurrentLocation().hashString
         return this._task.render({
             pending: () => html`<p>Loading ...</p>`,
             complete: (pair) => pair.lease ? html`
@@ -49,7 +51,7 @@ export default class LeaseView extends LitElement {
                     ` : nothing}
                 </div>
                 <div class="bottom-right">
-                    <update-link href=${`#/rents/edit/${this.thingId}`}></update-link>
+                    <update-link href=${`#/rents/edit/${this.thingId}?from=${hashold}`}></update-link>
                     <pdfile-link href=${therenv.apiBase + `/pdfile?egg=${encodeURIComponent(JSON.stringify(pair.lease))}`}></pdfile-link>
                 </div>
             ` : nothing,
@@ -80,7 +82,7 @@ export default class LeaseView extends LitElement {
 
             div > span {
                 display: block;
-                margin-left: 1.6rem;
+                margin-left: 1.5rem;
             }
         `
     ]
