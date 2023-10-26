@@ -20,8 +20,8 @@ export default class RenthingsView extends LitElement {
             complete: (tuples) => tuples.length > 0 ? html`<ul>${tuples.map(it => html`
                 <li .className=${this.rentId == it.rentId ? "selected" : ""}>
                     <a href=${`#/rents/view/${it.rentId}`} data-navigo>           
-                        ${it.lessor + " -:- " + it.lessee}, &nbsp;
-                        ${Intl.DateTimeFormat("zh-CN", { dateStyle: "long" }).format(it.startDate)}
+                        <span>${it.lessor + " -:- " + it.lessee}, &nbsp;</span>
+                        <span>${Intl.DateTimeFormat("zh-CN", { dateStyle: "long" }).format(it.startDate)}</span>
                     </a>
                 </li>`
             )}</ul>` : html`<p>
@@ -37,6 +37,11 @@ export default class RenthingsView extends LitElement {
         css`
             li a {
                 margin: 0.2rem;
+                display: flex;
+                flex-flow: row wrap;
+            }
+            a > span {
+                flex: none;
             }
             p {
                 text-align: center;

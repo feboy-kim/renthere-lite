@@ -10,7 +10,7 @@ export default class PeopleView extends LitElement {
     protected render(): unknown {
         return html`<div class="people">
                 <section>
-                    <span>甲方（出租人）: &nbsp;</span>
+                    <span>甲方（出租）: &nbsp;</span>
                     <div>
                         <div class="one-line">
                             <strong>${this.lessor.realName}, &nbsp;</strong>
@@ -20,7 +20,7 @@ export default class PeopleView extends LitElement {
                     </div>
                 </section>
                 <section>
-                    <span>乙方（承租人）: &nbsp;</span>
+                    <span>乙方（承租）: &nbsp;</span>
                     <div>
                         <div class="one-line">
                             <strong>${this.lessee.realName}, &nbsp;</strong>
@@ -35,15 +35,15 @@ export default class PeopleView extends LitElement {
     static styles = [
         css`
             div.people {
+                margin: 0.2rem 0.5rem;
                 display: flex;
                 flex-flow: row wrap;
-                gap: 2px;
+                gap: 8px;
             }
             section {
                 display: flex;
                 flex-flow: row nowrap;
                 gap: 2px;
-                padding: 0.2rem 0.5rem;
             }
             section > span {
                 flex: none;

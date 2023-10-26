@@ -38,7 +38,7 @@ export default class FlathingView extends LitElement {
         smallSvg,
         css`
             section {
-                margin: 0.5rem;
+                margin: 0.2rem;
             }
             section p {
                 display: flex;

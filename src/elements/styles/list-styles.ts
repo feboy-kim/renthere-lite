@@ -8,11 +8,10 @@ export const listStyles = css`
     li {
         cursor: pointer;
         padding: 0.2rem 0.5rem;
-        margin: 0.2rem;
+        margin: 0.5rem;
         text-align: center;
     }
     li.selected {
-        font-size: large;
         background-color: #4169e13F;
         border-radius: 4px;
     }

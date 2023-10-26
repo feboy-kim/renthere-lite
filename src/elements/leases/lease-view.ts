@@ -39,11 +39,9 @@ export default class LeaseView extends LitElement {
             complete: (pair) => pair.lease ? html`
                 <div class="agreement">
                     <h3>房屋租赁合同</h3>
-                    <div class="people">
-                        <people-view .lessor=${pair.lease.lessor} .lessee=${pair.lease.lessee}></people-view>
-                    </div>
+                    <people-view .lessor=${pair.lease.lessor} .lessee=${pair.lease.lessee}></people-view>
                     ${pair.detail ? html`
-                        <p style="margin: 0.2rem 0.6rem;">${pair.detail.firstext}</p>
+                        <p style="margin: 0.2rem 0.5rem;">${pair.detail.firstext}</p>
                         ${pair.detail.articles.map((d, i) => html`<article>
                             <h4 style="margin: 0.2rem;">${i + 1}. &nbsp; ${d.subtitle}</h4>
                             <div>${d.contents.map((t) => html`<span>${t}</span>`)}</div>
@@ -65,24 +63,18 @@ export default class LeaseView extends LitElement {
         bottomFixed,
         css`
             div.agreement {
-                margin: 0.5rem;
+                margin: 0.2rem;
             }
             h3, h4 {
                 padding: 0.2rem 0.5rem;
             }
-            div.people {
-                display: flex;
-                flex-flow: row wrap;
-                gap: 2px;
-            }
             article div {
-                margin: 0.1rem;
                 padding: 0.2rem 0.5rem;
             }
 
             div > span {
                 display: block;
-                margin-left: 1.5rem;
+                margin: 0.1rem 0.1rem 0.1rem 1.0rem;
             }
         `
     ]

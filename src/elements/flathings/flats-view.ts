@@ -19,7 +19,7 @@ export default class FlathingsView extends LitElement {
             pending: () => html`<p>Loading ...</p>`,
             complete: (tuples) => tuples.length > 0 ? html`<ul>${tuples.map(it => html`
                 <li .className=${this.flatId == it.flatId ? "selected" : ""}>
-                    <a href=${`#/flats/view/${it.flatId}`} data-navigo>${it.address}</a>
+                    <div><a href=${`#/flats/view/${it.flatId}`} data-navigo>${it.address}</a></div>
                 </li>`
             )}</ul>` : html`<p>
                 <a href="#/flats/edit" data-navigo>添加房屋记录 ...</a>
@@ -32,7 +32,7 @@ export default class FlathingsView extends LitElement {
         listStyles,
         linkStyles,
         css`
-            li a {
+            li div {
                 margin: 0.2rem;
             }
             p {

@@ -17,7 +17,7 @@ export default class FooterNav extends LitElement {
                 clip-path="url(#cp)" transform="translate(0,-2)" />
             </svg>
           </a>
-          <span>&copy;&nbsp;${new Date().getFullYear()} &nbsp; Renthere</span>
+          <span>${new Date().getFullYear()} &nbsp; Renthere</span>
       </nav>`
     }
 
@@ -26,6 +26,7 @@ export default class FooterNav extends LitElement {
         css`
             nav {
                 display: inline-flex;
+                flex-flow: row nowrap;
                 align-items: center;
                 padding: 0.2rem 0.5rem;
                 gap: 4px;
